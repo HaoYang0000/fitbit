@@ -1,0 +1,14 @@
+.nav {
+    position: fixed;
+    top: 0;
+    background-color: #00b0b9;
+    height: 40px;
+	width: 100%;
+	margin-bottom: 0px;
+    z-index: 1000;
+
+    .nav-bar {
+		margin-top: 5px;
+		margin-left: 10px;
+	}
+}
