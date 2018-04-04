@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Icon, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
@@ -23,19 +23,18 @@ class Dashboard extends Component {
         if (this.state.isLoggedIn) {
             return(
                 <div>
+                    <div className="plus-activity-icon">
+                        <Icon name='plus circle' size='massive'/>
+                    </div>
+                    
 
 
                 </div>
             )
         } else {
             return(
-                <div className="Dashboard">
-                    <Card>
-                        <h1>You must log in before you can see this page.</h1>
-                        <Link to="/">
-                            Back
-                        </Link>
-                    </Card>
+                <div>
+                    
                 </div>
             )
         }
