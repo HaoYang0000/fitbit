@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import GridLayout from 'react-grid-layout';
 import Popup from "reactjs-popup";
+import CheckActivity from '../Activity/CheckActivity.jsx'
 
 import styles from './styles.scss'
 
@@ -14,33 +15,25 @@ class Dashboard extends Component {
         super();
 
         this.state = {
-            isLoggedIn: true,
+            activity: ['run','walk','yoga'],
             message: ''
         }
 
     }
 
     render() {
-        var layout = [
-          {i: 'PLACEHODER1', x: 0, y: 0, w: 3, h: 2, minW: 3, maxW: 7},
-          {i: 'PLACEHODER2', x: 4, y: 0, w: 3, h: 2, minW: 3, maxW: 7},
-          {i: 'PLACEHODER3', x: 8, y: 0, w: 3, h: 2, minW: 3, maxW: 7}
-        ];
-
-        if (this.state.isLoggedIn) {
+        if (this.state.activity === []) {
             return(
                 <div>
                     <div className="plus-activity-icon">
                         <Link to="/addActivity"><Icon name='plus circle' size='massive'/></Link>
 
-                        
+
                     </div>
                     <div className="bottom-pannel">
-                        <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={2000}>
-                            <div className="pannel-component" key="PLACEHODER1">PLACEHODER1</div>
-                            <div className="pannel-component" key="PLACEHODER2">PLACEHODER2</div>
-                            <div className="pannel-component" key="PLACEHODER3">PLACEHODER3</div>
-                        </GridLayout>
+                        <div className="pannel-component left" >PLACEHODER1</div>
+                        <div className="pannel-component middle" >PLACEHODER2</div>
+                        <div className="pannel-component right" >PLACEHODER3</div>
                     </div>
                 </div>
 
@@ -48,7 +41,15 @@ class Dashboard extends Component {
         } else {
             return(
                 <div>
-                    
+                    <div className="plus-activity-icon">
+                        <CheckActivity/>
+
+                    </div>
+                    <div className="bottom-pannel">
+                        <div className="pannel-component left" >PLACEHODER1</div>
+                        <div className="pannel-component middle" >PLACEHODER2</div>
+                        <div className="pannel-component right" >PLACEHODER3</div>
+                    </div>
                 </div>
             )
         }
@@ -57,7 +58,7 @@ class Dashboard extends Component {
 
 export default Dashboard
 
-
+// Popup save for later
 // <Popup trigger={<Icon name='plus circle' size='massive'/>} position="center" closeOnDocumentClick>
 //                             {close => (
 //                               <div className="modal">

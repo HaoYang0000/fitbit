@@ -15,7 +15,7 @@ class AddActivity extends Component {
 	 	};
     }
 
-    
+
 
     // onSubmit(e) {
     //     e.preventDefault();
@@ -26,7 +26,7 @@ class AddActivity extends Component {
     //     const password = encodeURIComponent(this.state.user.password);
     //     const formData = `name=${name}&email=${email}&password=${password}`;
 
-    //     // create an AJAX POST request (This should probably done with Axios instead) 
+    //     // create an AJAX POST request (This should probably done with Axios instead)
     //     const xhr = new XMLHttpRequest();
     //     xhr.open('post', '/api/register');
     //     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

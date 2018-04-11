@@ -7,15 +7,17 @@ import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import AddActivity from '../Activity/AddActivity.jsx';
+import FitbitData from '../FitbitData/FitbitData.jsx';
 
-const Main = () =>(
+const Layout = () =>(
     <Switch>
     	<Route exact path="/" component={Dashboard}/>
 	    <Route exact path="/login" component={Login}/>
 	    <Route exact path="/register" component={Register}/>
 	    <Route exact path="/dashboard" component={Dashboard}/>
+      <Route exact path="/fitbitData" component={FitbitData}/>
 	    <Route exact path="/addActivity" component={AddActivity}/>
     </Switch>
 )
 
-export default Main
+export default Layout
