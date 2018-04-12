@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react'
 
 import styles from './style.scss'
 
+/* Header class */
 export const Header = (prpos) => {
     return(
     	<div className="nav">

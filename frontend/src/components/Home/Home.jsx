@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom'
 
 import styles from './styles.scss'
 
-
+/* Leave for register and login, save fo later */
 class Home extends Component {
 
     render() {
         return(
             <div>
-                
+
                 <div className="Home">
                     <Card>
-                        <h1>Welcome to MP2!</h1>
+                        <h1>Welcome to XXX</h1>
 
                         <span>
                             <Link to="/login">

@@ -8,7 +8,7 @@ import CheckActivity from '../Activity/CheckActivity.jsx'
 
 import styles from './styles.scss'
 
-
+/* This class is for main dashboard */
 class Dashboard extends Component {
 
     constructor() {

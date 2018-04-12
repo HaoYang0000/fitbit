@@ -7,6 +7,7 @@ import styles from './styles.scss'
 import ActivityItem from "./ActivityItem.jsx";
 
 
+/* This class is for check activity(activiti is already defined in this case)  */
 class CheckActivity extends Component {
     constructor() {
     	super();

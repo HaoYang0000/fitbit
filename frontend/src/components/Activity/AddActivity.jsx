@@ -6,7 +6,7 @@ import styles from './styles.scss'
 
 import ActivityItem from "./ActivityItem.jsx";
 
-
+/* This class is for add activity actions(activiti is not defined in this case) */
 class AddActivity extends Component {
     constructor() {
     	super();

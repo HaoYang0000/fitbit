@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-// import classNames from 'classnames/bind';
 
 import styles from './styles.scss'
 
-
+/* This class is for individual button  */
 class ActivityItem extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +21,7 @@ class ActivityItem extends Component {
   }
 
   render() {
+    //Example of how to switch class using Reactjs
   	var btnClass = 'item-';
   	if (this.state.isToggleOn) btnClass += 'on';
 	    else btnClass += 'off';
