@@ -36,6 +36,7 @@ Introduction
 ```
 
 ### File Structure Explain(Only for critical files)
+```
 -  fitbit
 | - index.js (Main app entry)
 | - package.json (Use for npm install)
@@ -57,3 +58,4 @@ Introduction
 | | backend (Express based, basic environment has set up, need further development later)
 | | config (reserved for some global settings, for example: mongodb account)
 | | design (Folder reserved for Yushuo to upload front design ideas)
+```
