@@ -3,7 +3,34 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios'
 import styles from './style.scss';
+import RC2 from 'react-chartjs2';
 
+const data = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+    {
+      label: 'My First dataset',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'rgba(75,192,192,0.4)',
+      borderColor: 'rgba(75,192,192,1)',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(75,192,192,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: [65, 59, 80, 81, 56, 55, 40],
+    }
+  ]
+};
 
 class FitbitData extends Component {
 
@@ -13,7 +40,8 @@ class FitbitData extends Component {
         this.state = {
         	 date:"2018-03-10",
            range:"1d",
-           detail_level:"1sec"
+           detail_level:"1sec",
+           hr_data:[]
         };
         this.retriveData = this.retriveData.bind(this);
     }
@@ -41,6 +69,9 @@ class FitbitData extends Component {
       // });
 
       this.retriveData();
+
+
+
     }
 
     /* Functions to retrive data from fitbit api, using axios. */
@@ -63,7 +94,22 @@ class FitbitData extends Component {
          Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdhY3Qgd3NldCB3bG9jIiwiZXhwIjoxNTI0MDE4NTY1LCJpYXQiOjE1MjM0MTM4NzJ9.UOsd4Ef9zjBc0ffDmAM4s5zko2rJllngfEgEczNgU1g' //the token is a variable which holds the token
        }}).then((res) => {
          console.log("Heart rate on: "+this.state.date);
-         console.log(res.data);
+         console.log( Object.values( res.data['activities-heart-intraday']['dataset'] ) );
+
+         var temp  = [];
+
+         for (var i = 0; i < res.data['activities-heart-intraday']['dataset'].length; i++) {
+           temp.push(res.data['activities-heart-intraday']['dataset'][i]['value']);
+         }
+         console.log( temp );
+
+         this.setState({
+             hr_data:temp
+         })
+
+         this.myChart = this.refs['canvas'].getChart();
+         this.myChart.data.datasets[0].data = this.state.hr_data;
+         this.myChart.update();
 
       }).catch( (err) => {
         console.log(err);
@@ -122,6 +168,7 @@ class FitbitData extends Component {
                       <input type="text" name="range" onChange={this.handleDetailLevelChange.bind(this)}/><label>Example: Number of data points to include. Either 1sec or 1min.</label>
                   </div>
                   <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
+                  <RC2 data={data} type='line' ref='canvas'/>
                 </div>
 
               )
