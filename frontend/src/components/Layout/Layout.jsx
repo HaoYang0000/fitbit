@@ -17,6 +17,7 @@ const Layout = () =>(
 	    <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/fitbitData" component={FitbitData}/>
 	    <Route exact path="/addActivity" component={AddActivity}/>
+      <Route exact path="/callback" component={FitbitData}/>
     </Switch>
 )
 
