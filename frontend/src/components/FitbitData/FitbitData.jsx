@@ -4,31 +4,85 @@ import $ from 'jquery';
 import axios from 'axios'
 import styles from './style.scss';
 import RC2 from 'react-chartjs2';
+import { ButtonGroup,Button } from 'react-bootstrap';
 
 const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+
+  labels: [],
   datasets: [
+    //HR
     {
-      label: 'My First dataset',
-      fill: false,
-      lineTension: 0.1,
+      type: 'line',
       backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,1)',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'rgba(75,192,192,1)',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40],
-    }
+      borderColor: 'rgba(75,192,192,0.4)',
+      // fill: false,
+      // lineTension: 0.1,
+      // backgroundColor: 'rgba(75,192,192,0.4)',
+      // borderColor: 'rgba(75,192,192,1)',
+      // borderCapStyle: 'butt',
+      // borderDash: [],
+      // borderDashOffset: 0.0,
+      // borderJoinStyle: 'miter',
+      // pointBorderColor: 'rgba(75,192,192,1)',
+      // pointBackgroundColor: '#fff',
+      // pointBorderWidth: 1,
+      // pointHoverRadius: 5,
+      // pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+      // pointHoverBorderColor: 'rgba(220,220,220,1)',
+      // pointHoverBorderWidth: 2,
+      // pointRadius: 1,
+      // pointHitRadius: 10,
+      label: 'Heart Rate Data',
+      fill: false,
+      showLine: true,
+      legend: {
+            display: true,
+            text: String
+      },
+      data: []
+
+    },
+    //SLeep
+    {
+      label: 'Sleep Data',
+      backgroundColor: 'rgba(115,102,192,0.4)',
+      borderColor: 'rgba(115,102,192,0.4)',
+      type: 'line',
+      fill: false,
+      showLine: true,
+      legend: {
+            display: true,
+            text: String
+      },
+      data: []
+    },
+    //Calories
+    {
+      label: 'Calories Data',
+      backgroundColor: 'rgba(75,102,100,0.4)',
+      borderColor:  'rgba(75,102,100,0.4)',
+      type: 'line',
+      fill: false,
+      showLine: true,
+      legend: {
+            display: true,
+            text: String
+      },
+      data: []
+    },//Step
+    {
+      label: 'Step Data',
+      backgroundColor: 'rgba(5,102,192,0.4)',
+      borderColor: 'rgba(5,102,192,0.4)',
+      type: 'line',
+      fill: false,
+      showLine: true,
+      legend: {
+            display: true,
+            text: String
+      },
+      data: []
+    },
   ]
 };
 
@@ -38,10 +92,15 @@ class FitbitData extends Component {
         super();
 
         this.state = {
-        	 date:"2018-03-10",
-           range:"1d",
-           detail_level:"1sec",
-           hr_data:[]
+           select_type:'day',
+        	 date:"2018-04-14",
+           range:"1m",
+           detail_level:"1min",
+           chart_labels:[],
+           hr_data:[],
+           sl_data:[],
+           cl_data:[],
+           sp_data:[]
         };
         this.retriveData = this.retriveData.bind(this);
     }
@@ -80,7 +139,7 @@ class FitbitData extends Component {
       // HELPFUL LINK FOR NEXT STAGE OF CHANGE: https://www.npmjs.com/package/passport-fitbit-oauth2
       axios.get('https://api.fitbit.com/1/user/-/profile.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdhY3Qgd3NldCB3bG9jIiwiZXhwIjoxNTI0MDE4NTY1LCJpYXQiOjE1MjM0MTM4NzJ9.UOsd4Ef9zjBc0ffDmAM4s5zko2rJllngfEgEczNgU1g' //the token is a variable which holds the token
+         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
        }}).then((res) => {
          console.log("Personal data on: "+this.state.date);
          console.log(res.data);
@@ -89,42 +148,170 @@ class FitbitData extends Component {
         console.log(err);
       });
 
+      // FOR Heart rate
       axios.get('https://api.fitbit.com/1/user/-/activities/heart/date/'+this.state.date+'/'+this.state.range+'/'+this.state.detail_level+'.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdhY3Qgd3NldCB3bG9jIiwiZXhwIjoxNTI0MDE4NTY1LCJpYXQiOjE1MjM0MTM4NzJ9.UOsd4Ef9zjBc0ffDmAM4s5zko2rJllngfEgEczNgU1g' //the token is a variable which holds the token
+         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
        }}).then((res) => {
          console.log("Heart rate on: "+this.state.date);
-         console.log( Object.values( res.data['activities-heart-intraday']['dataset'] ) );
+         console.log( res.data['activities-heart']  );
 
-         var temp  = [];
+         var temp_data  = [];
+         var temp_label  = [];
+         var min = 9999999999999;
+         var max = -1;
 
-         for (var i = 0; i < res.data['activities-heart-intraday']['dataset'].length; i++) {
-           temp.push(res.data['activities-heart-intraday']['dataset'][i]['value']);
+         for (var i = 0; i < res.data['activities-heart'].length; i++) {
+           temp_data.push(res.data['activities-heart'][i]['value']['restingHeartRate']);
+           temp_label.push(res.data['activities-heart'][i]['dateTime']);
+           if(parseInt(res.data['activities-heart'][i]['value']['restingHeartRate'])>= max){
+             max = parseInt(res.data['activities-heart'][i]['value']['restingHeartRate']);
+           }
+           if(parseInt(res.data['activities-heart'][i]['value']['restingHeartRate']) <= min){
+             min = parseInt(res.data['activities-heart'][i]['value']['restingHeartRate']);
+           }
          }
-         console.log( temp );
+
+         for (var i = 0; i < temp_data.length; i++) {
+           //Normalize
+           temp_data[i] = 1 + ( temp_data[i] - min ) * (5 - 1 )/ (max - min);
+         }
 
          this.setState({
-             hr_data:temp
+             hr_data:temp_data,
+             chart_labels:temp_label
          })
 
          this.myChart = this.refs['canvas'].getChart();
          this.myChart.data.datasets[0].data = this.state.hr_data;
+         this.myChart.data.labels = this.state.chart_labels;
          this.myChart.update();
 
       }).catch( (err) => {
         console.log(err);
       });
 
-      axios.get('https://api.fitbit.com/1.2/user/-/sleep/date/'+this.state.date+'.json',{
+      // FOR SLEEP
+      axios.get('https://api.fitbit.com/1/user/-/sleep/minutesAsleep/date/'+this.state.date+'/'+this.state.range+'.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdhY3Qgd3NldCB3bG9jIiwiZXhwIjoxNTI0MDE4NTY1LCJpYXQiOjE1MjM0MTM4NzJ9.UOsd4Ef9zjBc0ffDmAM4s5zko2rJllngfEgEczNgU1g' //the token is a variable which holds the token
+         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
        }}).then((res) => {
          console.log("Sleep log on: "+this.state.date);
          console.log(res.data);
 
+         var temp_data  = [];
+         var average = 0;
+         var min = 9999999999999;
+         var max = -1;
+
+         for (var i = 0; i < res.data['sleep-minutesAsleep'].length; i++) {
+           temp_data.push(parseInt(res.data['sleep-minutesAsleep'][i]['value']));
+           if(parseInt(res.data['sleep-minutesAsleep'][i]['value'])>= max){
+             max = parseInt(res.data['sleep-minutesAsleep'][i]['value']);
+           }
+           if(parseInt(res.data['sleep-minutesAsleep'][i]['value']) <= min){
+             min = parseInt(res.data['sleep-minutesAsleep'][i]['value']);
+           }
+         }
+
+         for (var i = 0; i < temp_data.length; i++) {
+           //Normalize
+           temp_data[i] = 1 + ( temp_data[i] - min ) * (5 - 1 )/ (max - min);
+         }
+
+         this.setState({
+             sl_data:temp_data
+         })
+
+         this.myChart = this.refs['canvas'].getChart();
+         this.myChart.data.datasets[1].data = this.state.sl_data;
+         this.myChart.update();
+
       }).catch( (err) => {
         console.log(err);
       });
+
+      // FOR Calories
+      axios.get('https://api.fitbit.com/1/user/-/activities/calories/date/'+this.state.date+'/'+this.state.range+'.json',{
+       headers: {
+         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+       }}).then((res) => {
+         console.log("Calories log on: "+this.state.date);
+         console.log(res.data);
+
+         var temp_data  = [];
+         var average = 0;
+         var min = 9999999999999;
+         var max = -1;
+
+         for (var i = 0; i < res.data['activities-calories'].length; i++) {
+           temp_data.push(parseInt(res.data['activities-calories'][i]['value']));
+           if(parseInt(res.data['activities-calories'][i]['value'])>= max){
+             max = parseInt(res.data['activities-calories'][i]['value']);
+           }
+           if(parseInt(res.data['activities-calories'][i]['value']) <= min){
+             min = parseInt(res.data['activities-calories'][i]['value']);
+           }
+         }
+
+         for (var i = 0; i < temp_data.length; i++) {
+           //Normalize
+           temp_data[i] = 1 + ( temp_data[i] - min ) * (5 - 1 )/ (max - min);
+         }
+
+         this.setState({
+             cl_data:temp_data
+         })
+
+         this.myChart = this.refs['canvas'].getChart();
+         this.myChart.data.datasets[2].data = this.state.cl_data;
+         this.myChart.update();
+
+      }).catch( (err) => {
+        console.log(err);
+      });
+
+      // FOR Steps
+      axios.get('https://api.fitbit.com/1/user/-/activities/steps/date/'+this.state.date+'/'+this.state.range+'.json',{
+       headers: {
+         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+       }}).then((res) => {
+         console.log("Steps log on: "+this.state.date);
+         console.log(res.data);
+
+         var temp_data  = [];
+         var average = 0;
+         var min = 9999999999999;
+         var max = -1;
+
+         for (var i = 0; i < res.data['activities-steps'].length; i++) {
+           temp_data.push(parseInt(res.data['activities-steps'][i]['value']));
+           if(parseInt(res.data['activities-steps'][i]['value'])>= max){
+             max = parseInt(res.data['activities-steps'][i]['value']);
+           }
+           if(parseInt(res.data['activities-steps'][i]['value']) <= min){
+             min = parseInt(res.data['activities-steps'][i]['value']);
+           }
+         }
+
+         for (var i = 0; i < temp_data.length; i++) {
+           //Normalize
+           temp_data[i] = 1 + ( temp_data[i] - min ) * (5 - 1 )/ (max - min);
+         }
+
+         this.setState({
+             sp_data:temp_data
+         })
+
+         this.myChart = this.refs['canvas'].getChart();
+         this.myChart.data.datasets[3].data = this.state.sp_data;
+         this.myChart.update();
+
+      }).catch( (err) => {
+        console.log(err);
+      });
+
+
     }
 
 
@@ -146,6 +333,12 @@ class FitbitData extends Component {
       })
     }
 
+    onSelectChanged(e){
+      this.setState({
+          select_type:e.target.value
+      })
+    }
+
     /* Handle action: update on input data, date, range, detail_level */
     handleUpdate(e){
       this.retriveData();
@@ -153,7 +346,26 @@ class FitbitData extends Component {
 
     render() {
             return(
+
                 <div className="temp">
+                  <div>
+                    <input type="radio" id="select_day"
+                     name="select" value="day" checked={this.state.select_type === 'day'} onChange={this.onSelectChanged.bind(this)} />
+                    <label htmlFor="select_day">Daily</label>
+
+                    <input type="radio" id="select_week"
+                     name="select" value="week" checked={this.state.select_type === 'week'} onChange={this.onSelectChanged.bind(this)} />
+                    <label htmlFor="select_week">Weekly</label>
+
+                    <input type="radio" id="select_month"
+                     name="select" value="month" checked={this.state.select_type === 'month'} onChange={this.onSelectChanged.bind(this)} />
+                    <label htmlFor="select_month">Monthly</label>
+
+                    <input type="radio" id="select_year"
+                     name="select" value="year" checked={this.state.select_type === 'year'} onChange={this.onSelectChanged.bind(this)} />
+                    <label htmlFor="select_year">Yearly</label>
+                  </div>
+
                   <h3>Testing playground</h3>
                   <div>
                     <label>Date</label>
