@@ -86,15 +86,17 @@ const data = {
   ]
 };
 
+const auth = 'Bearer '+'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd251dCB3cHJvIHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQxMDI5MDJ9.KLYm5hvfDVdQFHX2GM6PH4VnysH2iIkk5dOdWsmoccI';
+
 class FitbitData extends Component {
 
     constructor() {
         super();
 
         this.state = {
-           select_type:'day',
+           select_type:'week',
         	 date:"2018-04-14",
-           range:"1m",
+           period:"7d",
            detail_level:"1min",
            chart_labels:[],
            hr_data:[],
@@ -103,6 +105,7 @@ class FitbitData extends Component {
            sp_data:[]
         };
         this.retriveData = this.retriveData.bind(this);
+        this.clearGraph = this.clearGraph.bind(this);
     }
 
 
@@ -126,11 +129,18 @@ class FitbitData extends Component {
       // }).catch( (err) => {
       //   console.log(err);
       // });
-
       this.retriveData();
 
+    }
 
-
+    clearGraph(){
+      this.myChart = this.refs['canvas'].getChart();
+      this.myChart.data.datasets[0].data = [];
+      this.myChart.data.datasets[1].data = [];
+      this.myChart.data.datasets[2].data = [];
+      this.myChart.data.datasets[3].data = [];
+      this.myChart.data.labels = [];
+      this.myChart.update();
     }
 
     /* Functions to retrive data from fitbit api, using axios. */
@@ -139,19 +149,19 @@ class FitbitData extends Component {
       // HELPFUL LINK FOR NEXT STAGE OF CHANGE: https://www.npmjs.com/package/passport-fitbit-oauth2
       axios.get('https://api.fitbit.com/1/user/-/profile.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+         Authorization: auth
        }}).then((res) => {
          console.log("Personal data on: "+this.state.date);
-         console.log(res.data);
+         console.log(res);
 
       }).catch( (err) => {
         console.log(err);
       });
 
       // FOR Heart rate
-      axios.get('https://api.fitbit.com/1/user/-/activities/heart/date/'+this.state.date+'/'+this.state.range+'/'+this.state.detail_level+'.json',{
+      axios.get('https://api.fitbit.com/1/user/-/activities/heart/date/'+this.state.date+'/'+this.state.period+'/'+this.state.detail_level+'.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+         Authorization: auth
        }}).then((res) => {
          console.log("Heart rate on: "+this.state.date);
          console.log( res.data['activities-heart']  );
@@ -192,9 +202,9 @@ class FitbitData extends Component {
       });
 
       // FOR SLEEP
-      axios.get('https://api.fitbit.com/1/user/-/sleep/minutesAsleep/date/'+this.state.date+'/'+this.state.range+'.json',{
+      axios.get('https://api.fitbit.com/1/user/-/sleep/minutesAsleep/date/'+this.state.date+'/'+this.state.period+'.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+         Authorization: auth
        }}).then((res) => {
          console.log("Sleep log on: "+this.state.date);
          console.log(res.data);
@@ -232,9 +242,9 @@ class FitbitData extends Component {
       });
 
       // FOR Calories
-      axios.get('https://api.fitbit.com/1/user/-/activities/calories/date/'+this.state.date+'/'+this.state.range+'.json',{
+      axios.get('https://api.fitbit.com/1/user/-/activities/calories/date/'+this.state.date+'/'+this.state.period+'.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+         Authorization: auth
        }}).then((res) => {
          console.log("Calories log on: "+this.state.date);
          console.log(res.data);
@@ -272,9 +282,9 @@ class FitbitData extends Component {
       });
 
       // FOR Steps
-      axios.get('https://api.fitbit.com/1/user/-/activities/steps/date/'+this.state.date+'/'+this.state.range+'.json',{
+      axios.get('https://api.fitbit.com/1/user/-/activities/steps/date/'+this.state.date+'/'+this.state.period+'.json',{
        headers: {
-         Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3bnV0IHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQwMTkyODR9.SstXL4QimBfDHfaY8uVhshcIBT6YFmV9y12PA40ac0s' //the token is a variable which holds the token
+         Authorization: auth
        }}).then((res) => {
          console.log("Steps log on: "+this.state.date);
          console.log(res.data);
@@ -329,17 +339,61 @@ class FitbitData extends Component {
 
     handleRnageChange(e){
       this.setState({
-          range:e.target.value
+          period:e.target.value
       })
     }
 
     onSelectChanged(e){
-      this.setState({
-          select_type:e.target.value
-      })
+      console.log(e.target.value)
+      if(e.target.value === 'day'){
+        this.setState({
+            period:'1d',
+            chart_labels:[],
+            hr_data:[],
+            sl_data:[],
+            cl_data:[],
+            sp_data:[],
+            select_type:e.target.value
+        })
+      }
+      else if(e.target.value === 'week'){
+        this.setState({
+            period:'7d',
+            chart_labels:[],
+            hr_data:[],
+            sl_data:[],
+            cl_data:[],
+            sp_data:[],
+            select_type:e.target.value
+        })
+      }
+      else if(e.target.value === 'month'){
+        this.setState({
+            period:'1m',
+            chart_labels:[],
+            hr_data:[],
+            sl_data:[],
+            cl_data:[],
+            sp_data:[],
+            select_type:e.target.value
+        })
+      }
+      else if(e.target.value === 'year'){
+        this.setState({
+            period:'1y',
+            chart_labels:[],
+            hr_data:[],
+            sl_data:[],
+            cl_data:[],
+            sp_data:[],
+            select_type:e.target.value
+        })
+      }
+      this.clearGraph();
+      this.retriveData();
     }
 
-    /* Handle action: update on input data, date, range, detail_level */
+    /* Handle action: update on input data, date, period, detail_level */
     handleUpdate(e){
       this.retriveData();
     }
@@ -348,23 +402,7 @@ class FitbitData extends Component {
             return(
 
                 <div className="temp">
-                  <div>
-                    <input type="radio" id="select_day"
-                     name="select" value="day" checked={this.state.select_type === 'day'} onChange={this.onSelectChanged.bind(this)} />
-                    <label htmlFor="select_day">Daily</label>
 
-                    <input type="radio" id="select_week"
-                     name="select" value="week" checked={this.state.select_type === 'week'} onChange={this.onSelectChanged.bind(this)} />
-                    <label htmlFor="select_week">Weekly</label>
-
-                    <input type="radio" id="select_month"
-                     name="select" value="month" checked={this.state.select_type === 'month'} onChange={this.onSelectChanged.bind(this)} />
-                    <label htmlFor="select_month">Monthly</label>
-
-                    <input type="radio" id="select_year"
-                     name="select" value="year" checked={this.state.select_type === 'year'} onChange={this.onSelectChanged.bind(this)} />
-                    <label htmlFor="select_year">Yearly</label>
-                  </div>
 
                   <h3>Testing playground</h3>
                   <div>
@@ -372,12 +410,12 @@ class FitbitData extends Component {
                     <input type="text" name="date" onChange={this.handleDateChange.bind(this)}/><label>Example: The date, in the format yyyy-MM-dd or today.</label>
                   </div>
                   <div>
-                    <label>Range</label>
-                    <input type="text" name="detail_level" onChange={this.handleRnageChange.bind(this)}/><label>Example: The range for which data will be returned. Options are 1d, 7d, 30d, 1w, 1m.</label>
+                    <label>Period</label>
+                    <input type="text" name="detail_level" onChange={this.handleRnageChange.bind(this)}/><label>Example: The period for which data will be returned. Options are 1d, 7d, 30d, 1w, 1m.</label>
                   </div>
                   <div>
                     <label>Detail_level</label>
-                      <input type="text" name="range" onChange={this.handleDetailLevelChange.bind(this)}/><label>Example: Number of data points to include. Either 1sec or 1min.</label>
+                      <input type="text" name="period" onChange={this.handleDetailLevelChange.bind(this)}/><label>Example: Number of data points to include. Either 1sec or 1min.</label>
                   </div>
                   <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
                   <RC2 data={data} type='line' ref='canvas'/>
@@ -388,3 +426,21 @@ class FitbitData extends Component {
 }
 
 export default FitbitData
+
+// <div>
+//   <input type="radio" id="select_day"
+//    name="select" value="day" checked={this.state.select_type === 'day'} onChange={this.onSelectChanged.bind(this)} />
+//   <label htmlFor="select_day">Daily</label>
+//
+//   <input type="radio" id="select_week"
+//    name="select" value="week" checked={this.state.select_type === 'week'} onChange={this.onSelectChanged.bind(this)} />
+//   <label htmlFor="select_week">Weekly</label>
+//
+//   <input type="radio" id="select_month"
+//    name="select" value="month" checked={this.state.select_type === 'month'} onChange={this.onSelectChanged.bind(this)} />
+//   <label htmlFor="select_month">Monthly</label>
+//
+//   <input type="radio" id="select_year"
+//    name="select" value="year" checked={this.state.select_type === 'year'} onChange={this.onSelectChanged.bind(this)} />
+//   <label htmlFor="select_year">Yearly</label>
+// </div>
