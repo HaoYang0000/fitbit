@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Button, Icon, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios'
 import styles from './style.scss';
 import RC2 from 'react-chartjs2';
-import { ButtonGroup,Button } from 'react-bootstrap';
+import Popup from "reactjs-popup";
+
 
 const data = {
 
@@ -102,7 +104,8 @@ class FitbitData extends Component {
            hr_data:[],
            sl_data:[],
            cl_data:[],
-           sp_data:[]
+           sp_data:[],
+           activities:[]
         };
         this.retriveData = this.retriveData.bind(this);
         this.clearGraph = this.clearGraph.bind(this);
@@ -343,59 +346,37 @@ class FitbitData extends Component {
       })
     }
 
-    onSelectChanged(e){
-      console.log(e.target.value)
-      if(e.target.value === 'day'){
-        this.setState({
-            period:'1d',
-            chart_labels:[],
-            hr_data:[],
-            sl_data:[],
-            cl_data:[],
-            sp_data:[],
-            select_type:e.target.value
-        })
-      }
-      else if(e.target.value === 'week'){
-        this.setState({
-            period:'7d',
-            chart_labels:[],
-            hr_data:[],
-            sl_data:[],
-            cl_data:[],
-            sp_data:[],
-            select_type:e.target.value
-        })
-      }
-      else if(e.target.value === 'month'){
-        this.setState({
-            period:'1m',
-            chart_labels:[],
-            hr_data:[],
-            sl_data:[],
-            cl_data:[],
-            sp_data:[],
-            select_type:e.target.value
-        })
-      }
-      else if(e.target.value === 'year'){
-        this.setState({
-            period:'1y',
-            chart_labels:[],
-            hr_data:[],
-            sl_data:[],
-            cl_data:[],
-            sp_data:[],
-            select_type:e.target.value
-        })
-      }
-      this.clearGraph();
-      this.retriveData();
-    }
+
 
     /* Handle action: update on input data, date, period, detail_level */
     handleUpdate(e){
       this.retriveData();
+    }
+
+
+
+    handleAddActivity(e){
+
+      this.myChart = this.refs['canvas'].getChart();
+      var temp = [];
+      for (var i = 0; i < this.myChart.data.labels.length; i++) {
+        temp.push(Math.random()*document.getElementById('activity_level').value);
+      }
+      var color = 'rgba('+(Math.random()*255)+','+(Math.random()*255)+','+(Math.random()*255)+',0.4)';
+      this.myChart.data.datasets.push({
+        label: document.getElementById('activity_name').value,
+        backgroundColor: color,
+        borderColor: color,
+        type: 'line',
+        fill: false,
+        showLine: true,
+        legend: {
+              display: true,
+              text: String
+        },
+        data: temp
+      });
+      this.myChart.update();
     }
 
     render() {
@@ -419,6 +400,53 @@ class FitbitData extends Component {
                   </div>
                   <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
                   <RC2 data={data} type='line' ref='canvas'/>
+                  <Popup trigger={<Icon name='plus circle' size='massive'/>} position="top center" closeOnDocumentClick>
+                                              {close => (
+                                                <div className="modal">
+                                                  <a className="close" onClick={close}>
+                                                    &times;
+                                                  </a>
+                                                  <div className="header"> Add Activity Demo </div>
+                                                  <div className="content">
+                                                  <div>
+                                                    <label>Activity name</label>
+                                                    <input type="text" name="activity_name" id='activity_name'/>
+                                                  </div>
+                                                  <div>
+                                                    <label>Level or Quantitiy</label>
+                                                    <input type="text" name="activity_level" id='activity_level'/>
+                                                  </div>
+                                                  <div>
+                                                    <input type="button" name="submit_activity" value="Submit" onClick={this.handleAddActivity.bind(this)}/>
+                                                  </div>
+
+                                                  </div>
+                                                  <div className="actions">
+
+                                                    <Popup
+                                                      trigger={<button className="button"> Trigger </button>}
+                                                      position="top center"
+                                                      closeOnDocumentClick
+                                                    >
+                                                      <span>
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni omnis delectus
+                                                        nemo, maxime molestiae dolorem numquam mollitia, voluptate ea, accusamus excepturi
+                                                        deleniti ratione sapiente! Laudantium, aperiam doloribus. Odit, aut.
+                                                      </span>
+                                                    </Popup>
+                                                    <button
+                                                      className="button"
+                                                      onClick={() => {
+                                                        console.log('modal closed ')
+                                                        close()
+                                                      }}
+                                                    >
+                                                      close modal
+                                                    </button>
+                                                </div>
+                                                </div>
+                                              )}
+                                          </Popup>
                 </div>
 
               )
@@ -426,6 +454,56 @@ class FitbitData extends Component {
 }
 
 export default FitbitData
+
+// onSelectChanged(e){
+//   console.log(e.target.value)
+//   if(e.target.value === 'day'){
+//     this.setState({
+//         period:'1d',
+//         chart_labels:[],
+//         hr_data:[],
+//         sl_data:[],
+//         cl_data:[],
+//         sp_data:[],
+//         select_type:e.target.value
+//     })
+//   }
+//   else if(e.target.value === 'week'){
+//     this.setState({
+//         period:'7d',
+//         chart_labels:[],
+//         hr_data:[],
+//         sl_data:[],
+//         cl_data:[],
+//         sp_data:[],
+//         select_type:e.target.value
+//     })
+//   }
+//   else if(e.target.value === 'month'){
+//     this.setState({
+//         period:'1m',
+//         chart_labels:[],
+//         hr_data:[],
+//         sl_data:[],
+//         cl_data:[],
+//         sp_data:[],
+//         select_type:e.target.value
+//     })
+//   }
+//   else if(e.target.value === 'year'){
+//     this.setState({
+//         period:'1y',
+//         chart_labels:[],
+//         hr_data:[],
+//         sl_data:[],
+//         cl_data:[],
+//         sp_data:[],
+//         select_type:e.target.value
+//     })
+//   }
+//   this.clearGraph();
+//   this.retriveData();
+// }
 
 // <div>
 //   <input type="radio" id="select_day"
