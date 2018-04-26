@@ -5,7 +5,7 @@ import axios from 'axios'
 import GridLayout from 'react-grid-layout';
 import Popup from "reactjs-popup";
 import CheckActivity from '../Activity/CheckActivity.jsx'
-
+import AddActivity from '../Activity/AddActivity.jsx'
 import styles from './styles.scss'
 
 /* This class is for main dashboard */
@@ -15,36 +15,72 @@ class Dashboard extends Component {
         super();
 
         this.state = {
-            activity: ['run','walk','yoga'],
+            activity: [],
             message: ''
         }
+        this.handleUpdateActivity = this.handleUpdateActivity.bind(this);
+    }
+
+    componentDidMount() {
+
+        axios.get('/api/get_activities/1').then((res) => {
+          this.setState({
+                activity: res.data.activities
+          })
+        }).catch( (err) => {
+          console.log("Can not retrive data");
+          this.setState({
+                activity: []
+          })
+        });
+    }
+
+    handleAddActivity(e){
+
+      axios.post('/api/create_new_activity', {
+            name: document.getElementById('activity_name').value,
+            category: 'SPORT',
+            quantity: document.getElementById('activity_level').value,
+            user_id: 1
+          })
+          .then(res => {
+
+            if(res.status == 200){
+                console.log("succesful!");
+            } else {
+                this.setState({
+                     message: 'Unable to create!'
+                 });
+            }
+          })
+          .catch(function (error) {
+            console.log("error" + error);
+        });
+
+    }
+
+    handleUpdateActivity(new_item){
+      var temp = this.state.activity;
+      temp.push(new_item);
+      console.log(temp);
+      this.setState({
+           activity: temp
+      });
 
     }
 
     render() {
-        if (this.state.activity === []) {
+        if (this.state.activity.length == 0) {
             return(
-                <div>
-                    <div className="plus-activity-icon">
-                        <Link to="/addActivity"><Icon name='plus circle' size='massive'/></Link>
-
-
-                    </div>
-                    <div className="bottom-pannel">
-                        <div className="pannel-component left" >PLACEHODER1</div>
-                        <div className="pannel-component middle" >PLACEHODER2</div>
-                        <div className="pannel-component right" >PLACEHODER3</div>
-                    </div>
-                </div>
-
+                <div><AddActivity onUpdateActivity={this.handleUpdateActivity}/></div>
             )
         } else {
             return(
                 <div>
                     <div className="plus-activity-icon">
-                        <CheckActivity/>
-
+                        <CheckActivity activities={this.state.activity}/>
                     </div>
+                    <AddActivity onUpdateActivity={this.handleUpdateActivity}/>
                     <div className="bottom-pannel">
                         <div className="pannel-component left" >PLACEHODER1</div>
                         <div className="pannel-component middle" >PLACEHODER2</div>
@@ -57,47 +93,3 @@ class Dashboard extends Component {
 }
 
 export default Dashboard
-
-// Popup save for later
-// <Popup trigger={<Icon name='plus circle' size='massive'/>} position="center" closeOnDocumentClick>
-//                             {close => (
-//                               <div className="modal">
-//                                 <a className="close" onClick={close}>
-//                                   &times;
-//                                 </a>
-//                                 <div className="header"> Modal Title </div>
-//                                 <div className="content">
-//                                   {" "}
-//                                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-//                                   Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-//                                   delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
-//                                   <br />
-//                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-//                                   commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-//                                   explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
-//                                 </div>
-//                                 <div className="actions">
-//                                   <Popup
-//                                     trigger={<button className="button"> Trigger </button>}
-//                                     position="top center"
-//                                     closeOnDocumentClick
-//                                   >
-//                                     <span>
-//                                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni omnis delectus
-//                                       nemo, maxime molestiae dolorem numquam mollitia, voluptate ea, accusamus excepturi
-//                                       deleniti ratione sapiente! Laudantium, aperiam doloribus. Odit, aut.
-//                                     </span>
-//                                   </Popup>
-//                                   <button
-//                                     className="button"
-//                                     onClick={() => {
-//                                       console.log('modal closed ')
-//                                       close()
-//                                     }}
-//                                   >
-//                                     close modal
-//                                   </button>
-//                               </div>
-//                               </div>
-//                             )}
-//                         </Popup>

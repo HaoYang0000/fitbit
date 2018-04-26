@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
 var activitySchema = mongoose.Schema({
-    name		: String,
-    level	: Number,
-    time: {type: Date, default:Date.now}
+    name: String,
+    category: ['SPORT', 'OTHERS'],
+    quantity	: Number,
+    user_id: Number,
+    time: Date
 });
 
 // userSchema.methods.generateHash = function(password) {

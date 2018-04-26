@@ -9,7 +9,7 @@ export const Header = (prpos) => {
     return(
     	<div className="nav">
 	    	<nav>
-	    		<Link to={"/"}><Button className="nav-bar">Home</Button></Link>
+	    		<Link to={"/home"}><Button className="nav-bar">Home</Button></Link>
 	    		<Link to={"/login"}><Button className="nav-bar">Login</Button></Link>
 	    		<Link to={"/dashboard"}><Button className="nav-bar">dashboard</Button></Link>
           <Link to={"/fitbitData"}><Button className="nav-bar">fitbit data</Button></Link>
