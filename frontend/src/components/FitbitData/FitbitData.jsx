@@ -6,89 +6,89 @@ import axios from 'axios'
 import styles from './style.scss';
 import RC2 from 'react-chartjs2';
 import Popup from "reactjs-popup";
-
+import Corelation from "./Corelation.jsx";
 
 const data = {
 
   labels: [],
   datasets: [
     //HR
-    {
-      type: 'line',
-      backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,0.4)',
-      // fill: false,
-      // lineTension: 0.1,
-      // backgroundColor: 'rgba(75,192,192,0.4)',
-      // borderColor: 'rgba(75,192,192,1)',
-      // borderCapStyle: 'butt',
-      // borderDash: [],
-      // borderDashOffset: 0.0,
-      // borderJoinStyle: 'miter',
-      // pointBorderColor: 'rgba(75,192,192,1)',
-      // pointBackgroundColor: '#fff',
-      // pointBorderWidth: 1,
-      // pointHoverRadius: 5,
-      // pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      // pointHoverBorderColor: 'rgba(220,220,220,1)',
-      // pointHoverBorderWidth: 2,
-      // pointRadius: 1,
-      // pointHitRadius: 10,
-      label: 'Heart Rate Data',
-      fill: false,
-      showLine: true,
-      legend: {
-            display: true,
-            text: String
-      },
-      data: []
-
-    },
+    // {
+    //   type: 'line',
+    //   backgroundColor: 'rgba(75,192,192,0.4)',
+    //   borderColor: 'rgba(75,192,192,0.4)',
+    //   // fill: false,
+    //   // lineTension: 0.1,
+    //   // backgroundColor: 'rgba(75,192,192,0.4)',
+    //   // borderColor: 'rgba(75,192,192,1)',
+    //   // borderCapStyle: 'butt',
+    //   // borderDash: [],
+    //   // borderDashOffset: 0.0,
+    //   // borderJoinStyle: 'miter',
+    //   // pointBorderColor: 'rgba(75,192,192,1)',
+    //   // pointBackgroundColor: '#fff',
+    //   // pointBorderWidth: 1,
+    //   // pointHoverRadius: 5,
+    //   // pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+    //   // pointHoverBorderColor: 'rgba(220,220,220,1)',
+    //   // pointHoverBorderWidth: 2,
+    //   // pointRadius: 1,
+    //   // pointHitRadius: 10,
+    //   label: 'Heart Rate Data',
+    //   fill: false,
+    //   showLine: true,
+    //   legend: {
+    //         display: true,
+    //         text: String
+    //   },
+    //   data: []
+    //
+    // },
     //SLeep
-    {
-      label: 'Sleep Data',
-      backgroundColor: 'rgba(115,102,192,0.4)',
-      borderColor: 'rgba(115,102,192,0.4)',
-      type: 'line',
-      fill: false,
-      showLine: true,
-      legend: {
-            display: true,
-            text: String
-      },
-      data: []
-    },
-    //Calories
-    {
-      label: 'Calories Data',
-      backgroundColor: 'rgba(75,102,100,0.4)',
-      borderColor:  'rgba(75,102,100,0.4)',
-      type: 'line',
-      fill: false,
-      showLine: true,
-      legend: {
-            display: true,
-            text: String
-      },
-      data: []
-    },//Step
-    {
-      label: 'Step Data',
-      backgroundColor: 'rgba(5,102,192,0.4)',
-      borderColor: 'rgba(5,102,192,0.4)',
-      type: 'line',
-      fill: false,
-      showLine: true,
-      legend: {
-            display: true,
-            text: String
-      },
-      data: []
-    },
+    // {
+    //   label: 'Sleep Data',
+    //   backgroundColor: 'rgba(115,102,192,0.4)',
+    //   borderColor: 'rgba(115,102,192,0.4)',
+    //   type: 'line',
+    //   fill: false,
+    //   showLine: true,
+    //   legend: {
+    //         display: true,
+    //         text: String
+    //   },
+    //   data: []
+    // },
+    // //Calories
+    // {
+    //   label: 'Calories Data',
+    //   backgroundColor: 'rgba(75,102,100,0.4)',
+    //   borderColor:  'rgba(75,102,100,0.4)',
+    //   type: 'line',
+    //   fill: false,
+    //   showLine: true,
+    //   legend: {
+    //         display: true,
+    //         text: String
+    //   },
+    //   data: []
+    // },//Step
+    // {
+    //   label: 'Step Data',
+    //   backgroundColor: 'rgba(5,102,192,0.4)',
+    //   borderColor: 'rgba(5,102,192,0.4)',
+    //   type: 'line',
+    //   fill: false,
+    //   showLine: true,
+    //   legend: {
+    //         display: true,
+    //         text: String
+    //   },
+    //   data: []
+    // },
   ]
 };
 
-const auth = 'Bearer '+'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd251dCB3cHJvIHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI0NjI0MDg0LCJpYXQiOjE1MjQxMDI5MDJ9.KLYm5hvfDVdQFHX2GM6PH4VnysH2iIkk5dOdWsmoccI';
+const auth = 'Bearer '+'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd251dCB3cHJvIHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI1MzA2NjAzLCJpYXQiOjE1MjQ3MDE4MDN9.tMmLyFZnkb4FlzFFH35XvfhIRT90TcDIQKA5R01sN2Y';
 
 class FitbitData extends Component {
 
@@ -97,7 +97,7 @@ class FitbitData extends Component {
 
         this.state = {
            select_type:'week',
-        	 date:"2018-04-14",
+        	 date:"2018-04-24",
            period:"7d",
            detail_level:"1min",
            chart_labels:[],
@@ -105,10 +105,12 @@ class FitbitData extends Component {
            sl_data:[],
            cl_data:[],
            sp_data:[],
-           activities:[]
+           activity:[]
         };
         this.retriveData = this.retriveData.bind(this);
         this.clearGraph = this.clearGraph.bind(this);
+        this.retriveActivities = this.retriveActivities.bind(this);
+        this.getDataFromDate = this.getDataFromDate.bind(this);
     }
 
 
@@ -132,35 +134,216 @@ class FitbitData extends Component {
       // }).catch( (err) => {
       //   console.log(err);
       // });
+
+
+      this.clearGraph();
+
       this.retriveData();
+
+      this.retriveActivities();
+
+
+
+
+
+
+    }
+
+    retriveActivities(){
+      axios.get('/api/get_activities/1').then((res) => {
+        this.setState({
+              activity: res.data.activities
+        });
+        this.getDataFromDate(this.state.activity);
+
+
+      }).catch( (err) => {
+        console.log("Can not retrive data");
+        this.setState({
+              activity: []
+        })
+      });
+
+      // this.myChart = this.refs['canvas'].getChart();
+      // var temp = [];
+      // for (var i = 0; i < this.myChart.data.labels.length; i++) {
+      //   temp.push(Math.random()*document.getElementById('activity_level').value);
+      // }
+      // var color = 'rgba('+(Math.random()*255)+','+(Math.random()*255)+','+(Math.random()*255)+',0.4)';
+      // this.myChart.data.datasets.push({
+      //   label: document.getElementById('activity_name').value,
+      //   backgroundColor: color,
+      //   borderColor: color,
+      //   type: 'line',
+      //   fill: false,
+      //   showLine: true,
+      //   legend: {
+      //         display: true,
+      //         text: String
+      //   },
+      //   data: this.state.activity
+      // });
+      // this.myChart.update();
+    }
+
+    getDataFromDate(data){
+
+      this.myChart = this.refs['canvas'].getChart();
+
+      //Yoga
+      var temp = [];
+      var color = 'rgba('+(Math.random()*255)+','+(Math.random()*255)+','+(Math.random()*255)+',0.4)';
+      var min = 9999999999999;
+      var max = -1;
+      console.log(data);
+      console.log(max);
+      console.log(min);
+
+      var startDate = this.myChart.data.labels[0];
+      var endDate = this.myChart.data.labels[this.myChart.data.labels.length-1];
+
+      for (var i = 0; i < 100; i++) {
+        if(data[i].time >= startDate && data[i].time <= endDate){
+          if(data[i].quantity >= max){
+            max = data[i].quantity;
+          }
+          if(data[i].quantity <= min){
+            min = data[i].quantity;
+          }
+          temp.push(data[i].quantity);
+        }
+      }
+
+
+      for (var i = 0; i < temp.length; i++) {
+        //Normalize
+        temp[i] = 1 + ( temp[i] - min ) * (5 - 1)/ (max - min);
+      }
+
+      this.myChart.data.datasets.push({
+        label: data[0].name,
+        backgroundColor: color,
+        borderColor: color,
+        type: 'line',
+        fill: false,
+        showLine: true,
+        legend: {
+              display: true,
+              text: String
+        },
+        data: temp
+      });
+      this.myChart.update();
+
+
+      //Jog
+      temp = [];
+      color = 'rgba('+(Math.random()*255)+','+(Math.random()*255)+','+(Math.random()*255)+',0.4)';
+      min = 9999999999999;
+      max = -1;
+
+      for (var i = 100; i < 200; i++) {
+        if(data[i].time >= startDate && data[i].time <= endDate){
+          if(data[i].quantity >= max){
+            max = data[i].quantity;
+          }
+          if(data[i].quantity <= min){
+            min = data[i].quantity;
+          }
+          temp.push(data[i].quantity);
+        }
+      }
+
+
+      for (var i = 0; i < temp.length; i++) {
+        //Normalize
+        temp[i] = 1 + ( temp[i] - min ) * (5 - 1)/ (max - min);
+      }
+
+      this.myChart.data.datasets.push({
+        label: data[100].name,
+        backgroundColor: color,
+        borderColor: color,
+        type: 'line',
+        fill: false,
+        showLine: true,
+        legend: {
+              display: true,
+              text: String
+        },
+        data: temp
+      });
+      this.myChart.update();
+
+      //Push up
+      temp = [];
+      color = 'rgba('+(Math.random()*255)+','+(Math.random()*255)+','+(Math.random()*255)+',0.4)';
+      min = 9999999999999;
+      max = -1;
+
+      for (var i = 200; i < 300; i++) {
+        if(data[i].time >= startDate && data[i].time <= endDate){
+          if(data[i].quantity >= max){
+            max = data[i].quantity;
+          }
+          if(data[i].quantity <= min){
+            min = data[i].quantity;
+          }
+          temp.push(data[i].quantity);
+        }
+      }
+      console.log(data);
+      console.log(max);
+      console.log(min);
+
+      for (var i = 0; i < temp.length; i++) {
+        //Normalize
+        temp[i] = 1 + ( temp[i] - min ) * (5 - 1)/ (max - min);
+      }
+
+      this.myChart.data.datasets.push({
+        label: data[200].name,
+        backgroundColor: color,
+        borderColor: color,
+        type: 'line',
+        fill: false,
+        showLine: true,
+        legend: {
+              display: true,
+              text: String
+        },
+        data: temp
+      });
+      this.myChart.update();
 
     }
 
     clearGraph(){
       this.myChart = this.refs['canvas'].getChart();
-      this.myChart.data.datasets[0].data = [];
-      this.myChart.data.datasets[1].data = [];
-      this.myChart.data.datasets[2].data = [];
-      this.myChart.data.datasets[3].data = [];
+      var size = this.myChart.data.datasets.length;
+      for (var i = 0; i < size; i++) {
+        this.myChart.data.datasets.pop();
+      }
       this.myChart.data.labels = [];
       this.myChart.update();
     }
 
     /* Functions to retrive data from fitbit api, using axios. */
     retriveData(){
+
       //To get data from Fitbit api, need to oauth2 authentication. First send authentication request to get access token, and then using that token include in Bearer hearder to access data.
       // HELPFUL LINK FOR NEXT STAGE OF CHANGE: https://www.npmjs.com/package/passport-fitbit-oauth2
-      axios.get('https://api.fitbit.com/1/user/-/profile.json',{
-       headers: {
-         Authorization: auth
-       }}).then((res) => {
-         console.log("Personal data on: "+this.state.date);
-         console.log(res);
-
-      }).catch( (err) => {
-        console.log(err);
-      });
-
+      // axios.get('https://api.fitbit.com/1/user/-/profile.json',{
+      //  headers: {
+      //    Authorization: auth
+      //  }}).then((res) => {
+      //    console.log("Personal data on: "+this.state.date);
+      //    console.log(res);
+      //
+      // }).catch( (err) => {
+      //   console.log(err);
+      // });
+      //
       // FOR Heart rate
       axios.get('https://api.fitbit.com/1/user/-/activities/heart/date/'+this.state.date+'/'+this.state.period+'/'+this.state.detail_level+'.json',{
        headers: {
@@ -168,7 +351,6 @@ class FitbitData extends Component {
        }}).then((res) => {
          console.log("Heart rate on: "+this.state.date);
          console.log( res.data['activities-heart']  );
-
          var temp_data  = [];
          var temp_label  = [];
          var min = 9999999999999;
@@ -196,15 +378,29 @@ class FitbitData extends Component {
          })
 
          this.myChart = this.refs['canvas'].getChart();
-         this.myChart.data.datasets[0].data = this.state.hr_data;
+         this.myChart.data.datasets.push({
+           label: "Heart Rate",
+           backgroundColor: 'rgba(75,192,192,0.4)',
+           borderColor: 'rgba(75,192,192,0.4)',
+           type: 'line',
+           fill: false,
+           showLine: true,
+           legend: {
+                 display: true,
+                 text: String
+           },
+           data: this.state.hr_data
+         });
          this.myChart.data.labels = this.state.chart_labels;
          this.myChart.update();
+
+
 
       }).catch( (err) => {
         console.log(err);
       });
-
-      // FOR SLEEP
+      //
+      // // FOR SLEEP
       axios.get('https://api.fitbit.com/1/user/-/sleep/minutesAsleep/date/'+this.state.date+'/'+this.state.period+'.json',{
        headers: {
          Authorization: auth
@@ -234,11 +430,24 @@ class FitbitData extends Component {
 
          this.setState({
              sl_data:temp_data
-         })
-
+         });
+         
          this.myChart = this.refs['canvas'].getChart();
-         this.myChart.data.datasets[1].data = this.state.sl_data;
+         this.myChart.data.datasets.push({
+           label: "Sleep",
+           backgroundColor: 'rgba(115,102,192,0.4)',
+           borderColor: 'rgba(115,102,192,0.4)',
+           type: 'line',
+           fill: false,
+           showLine: true,
+           legend: {
+                 display: true,
+                 text: String
+           },
+           data: this.state.sl_data
+         });
          this.myChart.update();
+
 
       }).catch( (err) => {
         console.log(err);
@@ -274,11 +483,24 @@ class FitbitData extends Component {
 
          this.setState({
              cl_data:temp_data
-         })
+         });
 
          this.myChart = this.refs['canvas'].getChart();
-         this.myChart.data.datasets[2].data = this.state.cl_data;
+         this.myChart.data.datasets.push({
+           label: "Calories",
+           backgroundColor: 'rgba(75,102,100,0.4)',
+           borderColor: 'rgba(75,102,100,0.4)',
+           type: 'line',
+           fill: false,
+           showLine: true,
+           legend: {
+                 display: true,
+                 text: String
+           },
+           data: this.state.cl_data
+         });
          this.myChart.update();
+
 
       }).catch( (err) => {
         console.log(err);
@@ -314,16 +536,28 @@ class FitbitData extends Component {
 
          this.setState({
              sp_data:temp_data
-         })
+         });
 
          this.myChart = this.refs['canvas'].getChart();
-         this.myChart.data.datasets[3].data = this.state.sp_data;
+         this.myChart.data.datasets.push({
+           label: "Steps",
+           backgroundColor: 'rgba(5,102,192,0.4)',
+           borderColor: 'rgba(5,102,192,0.4)',
+           type: 'line',
+           fill: false,
+           showLine: true,
+           legend: {
+                 display: true,
+                 text: String
+           },
+           data: this.state.sp_data
+         });
          this.myChart.update();
+
 
       }).catch( (err) => {
         console.log(err);
       });
-
 
     }
 
@@ -350,34 +584,11 @@ class FitbitData extends Component {
 
     /* Handle action: update on input data, date, period, detail_level */
     handleUpdate(e){
+      this.clearGraph();
       this.retriveData();
+      this.retriveActivities();
     }
 
-
-
-    handleAddActivity(e){
-
-      this.myChart = this.refs['canvas'].getChart();
-      var temp = [];
-      for (var i = 0; i < this.myChart.data.labels.length; i++) {
-        temp.push(Math.random()*document.getElementById('activity_level').value);
-      }
-      var color = 'rgba('+(Math.random()*255)+','+(Math.random()*255)+','+(Math.random()*255)+',0.4)';
-      this.myChart.data.datasets.push({
-        label: document.getElementById('activity_name').value,
-        backgroundColor: color,
-        borderColor: color,
-        type: 'line',
-        fill: false,
-        showLine: true,
-        legend: {
-              display: true,
-              text: String
-        },
-        data: temp
-      });
-      this.myChart.update();
-    }
 
     render() {
             return(
@@ -400,53 +611,9 @@ class FitbitData extends Component {
                   </div>
                   <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
                   <RC2 data={data} type='line' ref='canvas'/>
-                  <Popup trigger={<Icon name='plus circle' size='massive'/>} position="top center" closeOnDocumentClick>
-                                              {close => (
-                                                <div className="modal">
-                                                  <a className="close" onClick={close}>
-                                                    &times;
-                                                  </a>
-                                                  <div className="header"> Add Activity Demo </div>
-                                                  <div className="content">
-                                                  <div>
-                                                    <label>Activity name</label>
-                                                    <input type="text" name="activity_name" id='activity_name'/>
-                                                  </div>
-                                                  <div>
-                                                    <label>Level or Quantitiy</label>
-                                                    <input type="text" name="activity_level" id='activity_level'/>
-                                                  </div>
-                                                  <div>
-                                                    <input type="button" name="submit_activity" value="Submit" onClick={this.handleAddActivity.bind(this)}/>
-                                                  </div>
 
-                                                  </div>
-                                                  <div className="actions">
+                  <Corelation data={data}/>
 
-                                                    <Popup
-                                                      trigger={<button className="button"> Trigger </button>}
-                                                      position="top center"
-                                                      closeOnDocumentClick
-                                                    >
-                                                      <span>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni omnis delectus
-                                                        nemo, maxime molestiae dolorem numquam mollitia, voluptate ea, accusamus excepturi
-                                                        deleniti ratione sapiente! Laudantium, aperiam doloribus. Odit, aut.
-                                                      </span>
-                                                    </Popup>
-                                                    <button
-                                                      className="button"
-                                                      onClick={() => {
-                                                        console.log('modal closed ')
-                                                        close()
-                                                      }}
-                                                    >
-                                                      close modal
-                                                    </button>
-                                                </div>
-                                                </div>
-                                              )}
-                                          </Popup>
                 </div>
 
               )

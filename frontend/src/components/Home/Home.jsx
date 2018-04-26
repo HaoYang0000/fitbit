@@ -12,25 +12,29 @@ class Home extends Component {
             <div>
 
                 <div className="Home">
-                    <Card>
-                        <h1>Welcome to XXX</h1>
-
-                        <span>
-                            <Link to="/login">
-                                <Button>
-                                    Login
-                                </Button>
-                            </Link>
-
-                            <Link to="/register">
-                                <Button>
-                                    Register
-                                </Button>
-                            </Link>
-                        </span>
-
-                        <br />
-                    </Card>
+                <ul className="rectangle-17-m">
+<li>Overall</li>
+</ul>
+<ul className="rectangle-17-m">
+<li>Rate</li>
+</ul>
+<ul className="rectangle-17-m">
+<li>Calories</li>
+</ul>
+<ul className="rectangle-17-m">
+<li>Steps</li>
+</ul>
+<ul className="rectangle-17-m">
+<li>Sleep</li>
+</ul>
+<ul className="rectangle-17-m">
+<li>Weight</li>
+</ul>
+<ul className="rectangle-17">
+<li>
+</li>
+<li>My Health Buddy</li>
+</ul>
                 </div>
             </div>
         )

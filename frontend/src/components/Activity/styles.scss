@@ -1,15 +1,26 @@
 .center{
-	margin: auto;
-    width: 50%;
-    padding: 100px 0;
-    border: 3px solid green;
+	  position: relative;
+		top: 100px;
+		width: 100%;
+		height: 100%;
+    border: 3px solid #00b0b9;
     text-align: center;
+
 }
 
 .item-on{
-	background-color: green;
+	background-color: #00b0b9;
+	display: block;
 }
 
-.item-on{
+.item-off{
+	background-color: white;
+	display: block;
+}
 
+.add_activity{
+	position: absolute;
+	right: 100px;
+	top: 200px;
+	text-align: center;
 }
