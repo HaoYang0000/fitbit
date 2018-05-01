@@ -5,7 +5,7 @@ import { Button, Input, Card } from 'semantic-ui-react'
 import styles from './styles.scss'
 
 import ActivityItem from "./ActivityItem.jsx";
-
+import Header from '../Header/Header.jsx';
 
 /* This class is for check activity(activiti is already defined in this case)  */
 class CheckActivity extends Component {
@@ -27,9 +27,11 @@ class CheckActivity extends Component {
       })
 
         return(
-        	<div className="center" >
-            {items}
-        	</div>
+          <div>
+          	<div className="center" >
+              {items}
+          	</div>
+          </div>
     	)
 	}
 }

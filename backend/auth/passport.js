@@ -18,7 +18,7 @@ module.exports = function(passport) {
     // Registration Strategy
     passport.use('local-signup', new LocalStrategy({
         usernameField : 'email',
-        passwordField : 'password',
+        passwordField : 'password'
     },
     function(email, password, done) {
         User.findOne({'email' : email}, function(err, user) {
@@ -42,7 +42,7 @@ module.exports = function(passport) {
     // Login Strategy
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
-        passwordField: 'password',
+        passwordField: 'password'
     },
     function(email, password, done) {
         User.findOne({'email': email}, function(err, user) {
@@ -52,6 +52,7 @@ module.exports = function(passport) {
                 return done(null, false);
             }
 
+            console.dir(user);
             return done(null, user);
         });
     }));

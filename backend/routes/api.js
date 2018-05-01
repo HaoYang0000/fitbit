@@ -1,17 +1,19 @@
 var User = require('../models/user');
 var Activity = require('../models/activity');
 
-module.exports = function(router) {
+module.exports = function(router, passport) {
 
     router.post('/register',
+        passport.authenticate('local-signup'),
         function(req, res) {
             res.status(200).json({ user: req.user.email
         });
     });
 
     router.post('/login',
-       function(req, res) {
-            console.log(req.isAuthenticated());
+        passport.authenticate('local-login'),
+        function(req, res) {
+            console.log("aaaaaaaa"+req.isAuthenticated());
             res.status(200).json({ user: req.user.email
         });
     });
@@ -19,6 +21,7 @@ module.exports = function(router) {
     router.get('/profile',
         isLoggedIn,
         function(req, res) {
+            console.log(req.isAuthenticated());
             res.status(200).json({ user: req.user, message: "Welcome!"
         });
     });
@@ -26,6 +29,12 @@ module.exports = function(router) {
     router.get('/logout', function(req, res) {
         req.logOut();
         res.status(200).json({ message: "logged out "});
+    });
+
+    router.get('/get_current_user',
+        function(req, res) {
+            res.status(200).json({ user: req.user
+        });
     });
 
     //Create new activity
@@ -91,8 +100,8 @@ module.exports = function(router) {
 }
 
 function isLoggedIn(req, res, next) {
-    // if (req.isAuthenticated()) {
-    //     return next();
-    // }
-    // return res.status(401).json({ message: "unable to auth" });
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.status(401).json({ message: "unable to auth" });
 }

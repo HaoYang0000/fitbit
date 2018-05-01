@@ -7,6 +7,7 @@ import styles from './style.scss';
 import RC2 from 'react-chartjs2';
 import Popup from "reactjs-popup";
 import Corelation from "./Corelation.jsx";
+import Header from '../Header/Header.jsx';
 
 const data = {
 
@@ -431,7 +432,7 @@ class FitbitData extends Component {
          this.setState({
              sl_data:temp_data
          });
-         
+
          this.myChart = this.refs['canvas'].getChart();
          this.myChart.data.datasets.push({
            label: "Sleep",
@@ -592,7 +593,8 @@ class FitbitData extends Component {
 
     render() {
             return(
-
+                <div>
+                <Header/>
                 <div className="temp">
 
 
@@ -615,7 +617,7 @@ class FitbitData extends Component {
                   <Corelation data={data}/>
 
                 </div>
-
+                </div>
               )
     }
 }

@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import styles from './styles.scss'
-
-
+import Header from '../Header/Header.jsx';
 
 class Register extends Component {
     constructor() {
@@ -21,27 +20,25 @@ class Register extends Component {
         }
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
+
     }
 
     onSubmit(e) {
         e.preventDefault();
 
         // create a string for an HTTP body message
-        const name = encodeURIComponent(this.state.user.username);
-        const email = encodeURIComponent(this.state.user.email);
-        const password = encodeURIComponent(this.state.user.password);
-        const formData = `name=${name}&email=${email}&password=${password}`;
+        const email = encodeURIComponent(document.getElementById('email').value);
+        const password = encodeURIComponent(document.getElementById('password').value);
+        const formData = `email=${email}&password=${password}`;
 
-        // create an AJAX POST request (This should probably done with Axios instead) 
+        // create an AJAX POST request (This should probably done with Axios instead)
         const xhr = new XMLHttpRequest();
         xhr.open('post', '/api/register');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
-                console.log('The form is valid');
+
                 this.setState({
                     message: 'Registered!'
                 })
@@ -52,42 +49,29 @@ class Register extends Component {
             }
         });
         xhr.send(formData);
-    }
 
-    onChangeEmail(e) {
-        const user = this.state.user;
-        user.email = e.target.value;
-        this.setState({
-            user
-        })
-    }
-
-    onChangePassword(e) {
-        const user = this.state.user;
-        user.password = e.target.value;
-        this.setState({
-            user
-        })
     }
 
     render() {
         return(
+          <div>
+          <Header/>
             <form className="Register" action="/" onSubmit={this.onSubmit}>
                 <Card className="Register__content">
                     <div>
                         <h1>Register</h1>
-                        <Input label="Email" onChange={this.onChangeEmail} />
+                        <Input label="Email" id="email"  />
                         <br/><br/>
-                        <Input label="Password" onChange={this.onChangePassword} />
+                        <Input label="Password" id="password"  />
                         <br/><br/>
                         <p>{this.state.message}</p>
                         <Input type="submit" />
                         <h4>Already registered? Click <Link to="/login">here</Link> to Log-in!</h4>
 
-                        <Link to="/dashboard"><p>Go to Dashboard</p></Link>
                     </div>
                 </Card>
             </form>
+        </div>
     )
 }
 }
