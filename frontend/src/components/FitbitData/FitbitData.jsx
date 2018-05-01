@@ -7,7 +7,6 @@ import styles from './style.scss';
 import RC2 from 'react-chartjs2';
 import Popup from "reactjs-popup";
 import Corelation from "./Corelation.jsx";
-import Header from '../Header/Header.jsx';
 
 const data = {
 
@@ -97,6 +96,10 @@ class FitbitData extends Component {
         super();
 
         this.state = {
+          user: {
+              password: '',
+              email: ''
+          },
            select_type:'week',
         	 date:"2018-04-24",
            period:"7d",
@@ -594,7 +597,6 @@ class FitbitData extends Component {
     render() {
             return(
                 <div>
-                <Header/>
                 <div className="temp">
 
 

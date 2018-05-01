@@ -3,7 +3,6 @@ import { Button, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import styles from './styles.scss'
-import Header from '../Header/Header.jsx';
 
 /* Leave for register and login, save fo later */
 class Home extends Component {
@@ -11,7 +10,6 @@ class Home extends Component {
     render() {
         return(
             <div>
-                <Header/>
                 <div className="Home">
                 <ul className="rectangle-17-m">
 <li>Overall</li>

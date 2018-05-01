@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Button, Input, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
-
 import styles from './styles.scss'
-import Header from '../Header/Header.jsx';
 
 class Login extends Component {
 
     constructor() {
         super();
+
+
 
         this.state = {
             user: {
@@ -59,7 +59,7 @@ class Login extends Component {
     render() {
         return(
             <div>
-            <Header currentUser={this.state.user.email} />
+
             <form className="Login" action="/" onSubmit={this.onSubmit}>
                 <Card className="Login__content">
                     <div>

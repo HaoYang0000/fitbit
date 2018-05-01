@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import styles from './styles.scss'
-import Header from '../Header/Header.jsx';
 
 class Register extends Component {
     constructor() {
@@ -55,7 +54,6 @@ class Register extends Component {
     render() {
         return(
           <div>
-          <Header/>
             <form className="Register" action="/" onSubmit={this.onSubmit}>
                 <Card className="Register__content">
                     <div>

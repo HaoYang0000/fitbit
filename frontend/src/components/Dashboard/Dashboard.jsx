@@ -7,7 +7,6 @@ import Popup from "reactjs-popup";
 import CheckActivity from '../Activity/CheckActivity.jsx'
 import AddActivity from '../Activity/AddActivity.jsx'
 import styles from './styles.scss'
-import Header from '../Header/Header.jsx';
 
 /* This class is for main dashboard */
 class Dashboard extends Component {
@@ -16,6 +15,10 @@ class Dashboard extends Component {
         super();
 
         this.state = {
+          user: {
+              password: '',
+              email: ''
+          },
             activity: [],
             message: ''
         }
@@ -74,14 +77,12 @@ class Dashboard extends Component {
         if (this.state.activity.length == 0) {
             return(
                 <div>
-                  <Header/>
                   <div><AddActivity onUpdateActivity={this.handleUpdateActivity}/></div>
                 </div>
             )
         } else {
             return(
                 <div>
-                  <Header/>
                     <div className="plus-activity-icon">
                         <CheckActivity activities={this.state.activity}/>
                     </div>
