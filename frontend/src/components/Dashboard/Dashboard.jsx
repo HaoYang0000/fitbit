@@ -15,6 +15,10 @@ class Dashboard extends Component {
         super();
 
         this.state = {
+          user: {
+              password: '',
+              email: ''
+          },
             activity: [],
             message: ''
         }
@@ -72,7 +76,9 @@ class Dashboard extends Component {
     render() {
         if (this.state.activity.length == 0) {
             return(
-                <div><AddActivity onUpdateActivity={this.handleUpdateActivity}/></div>
+                <div>
+                  <div><AddActivity onUpdateActivity={this.handleUpdateActivity}/></div>
+                </div>
             )
         } else {
             return(

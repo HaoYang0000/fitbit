@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const passport = require('passport')
 const config = require('./config');
 const User = require('./')
 const router = express.Router();
@@ -22,6 +23,9 @@ app.route('/').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 });
 app.route('/login').get(function(req, res) {
+  return res.sendFile(path.join(__dirname, './backend/static/index.html'));
+});
+app.route('/logout').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 });
 app.route('/home').get(function(req, res) {
@@ -46,6 +50,10 @@ app.route('/fitbitData').get(function(req,res) {
 /* New things ================================================================ */
 
 require('./backend/models').connect(config.dbUri);
+require('./backend/auth/passport')(passport);
+
+app.use(passport.initialize()); // Create an instance of Passport
+app.use(passport.session());
 
 // Initialize cookie sessions
 app.use(cookieParser());
@@ -55,7 +63,7 @@ app.use(cookieSession({
 
 
 // Get our routes
-app.use('/api', require('./backend/routes/api')(router));
+app.use('/api', require('./backend/routes/api')(router, passport));
 
 /* =========================================================================== */
 

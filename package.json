@@ -24,6 +24,8 @@
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
     "react-chartjs2": "^1.2.1",

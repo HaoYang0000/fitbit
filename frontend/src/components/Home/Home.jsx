@@ -10,7 +10,6 @@ class Home extends Component {
     render() {
         return(
             <div>
-
                 <div className="Home">
                 <ul className="rectangle-17-m">
 <li>Overall</li>

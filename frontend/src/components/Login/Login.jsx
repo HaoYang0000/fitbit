@@ -2,34 +2,33 @@ import React, { Component } from 'react'
 import { Button, Input, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
-
 import styles from './styles.scss'
-
 
 class Login extends Component {
 
     constructor() {
         super();
 
+
+
         this.state = {
             user: {
                 password: '',
                 email: ''
             },
-
+            isLoggedIn: false,
             message: ''
         }
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
     }
+
 
     onSubmit(e) {
         e.preventDefault();
 
-        const email = encodeURIComponent(this.state.user.email);
-        const password = encodeURIComponent(this.state.user.password);
+        const email = encodeURIComponent(document.getElementById('email').value);
+        const password = encodeURIComponent(document.getElementById('password').value);
         const formData = `email=${email}&password=${password}`;
 
         // create an AJAX request (This should probably done with Axios instead)
@@ -39,8 +38,13 @@ class Login extends Component {
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
+                console.log(xhr.response.user);
                 this.setState({
-                    message: 'Successfully logged in!'
+                    message: 'Successfully logged in!',
+                    user:{
+                      email:xhr.response.user
+                    },
+                    isLoggedIn:true
                 })
             } else {
                 this.setState({
@@ -51,39 +55,24 @@ class Login extends Component {
         xhr.send(formData);
     }
 
-    onChangeEmail(e) {
-        const user = this.state.user;
-        user.email = e.target.value;
-        this.setState({
-            user
-        })
-    }
-
-    onChangePassword(e) {
-        const user = this.state.user;
-        user.password = e.target.value;
-        this.setState({
-            user
-        })
-    }
 
     render() {
         return(
             <div>
+
             <form className="Login" action="/" onSubmit={this.onSubmit}>
                 <Card className="Login__content">
                     <div>
                         <h1>Login</h1>
-                        <Input label="Email" onChange={this.onChangeEmail} />
+                        <Input label="Email" id="email"  />
                         <br/><br/>
-                        <Input label="Password" onChange={this.onChangePassword} />
+                        <Input label="Password" id="password"  />
                         <br/><br/>
 
                         <p>{this.state.message}</p>
                         <Input type="submit" />
                         <h4>No account yet? Click <Link to="/register">here</Link> to Register!</h4>
 
-                        <Link to="/dashboard"><p>Go to Dashboard</p></Link>
                     </div>
                 </Card>
             </form>

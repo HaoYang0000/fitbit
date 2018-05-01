@@ -96,6 +96,10 @@ class FitbitData extends Component {
         super();
 
         this.state = {
+          user: {
+              password: '',
+              email: ''
+          },
            select_type:'week',
         	 date:"2018-04-24",
            period:"7d",
@@ -431,7 +435,7 @@ class FitbitData extends Component {
          this.setState({
              sl_data:temp_data
          });
-         
+
          this.myChart = this.refs['canvas'].getChart();
          this.myChart.data.datasets.push({
            label: "Sleep",
@@ -592,7 +596,7 @@ class FitbitData extends Component {
 
     render() {
             return(
-
+                <div>
                 <div className="temp">
 
 
@@ -615,7 +619,7 @@ class FitbitData extends Component {
                   <Corelation data={data}/>
 
                 </div>
-
+                </div>
               )
     }
 }

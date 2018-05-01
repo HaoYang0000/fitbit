@@ -1,25 +1,35 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router';
-import { Switch, Route } from 'react-router-dom'
+import React, { Component } from 'react'
+import ReactDom from 'react-dom';
 
-import Home from '../Home/Home.jsx';
-import Register from '../Register/Register.jsx';
-import Login from '../Login/Login.jsx';
-import Dashboard from '../Dashboard/Dashboard.jsx';
-import AddActivity from '../Activity/AddActivity.jsx';
-import FitbitData from '../FitbitData/FitbitData.jsx';
+import Routes from './Routes.jsx';
+import Header from '../Header/Header.jsx';
 
-const Layout = () =>(
-    <Switch>
-    	<Route exact path="/" component={Dashboard}/>
-      <Route exact path="/home" component={Home}/>
-	    <Route exact path="/login" component={Login}/>
-	    <Route exact path="/register" component={Register}/>
-	    <Route exact path="/dashboard" component={Dashboard}/>
-      <Route exact path="/fitbitData" component={FitbitData}/>
-	    <Route exact path="/addActivity" component={AddActivity}/>
-      <Route exact path="/callback" component={FitbitData}/>
-    </Switch>
-)
+class Layout extends Component {
+  constructor() {
+      super();
+
+
+
+      this.state = {
+          user: {
+              password: '',
+              email: ''
+          },
+          isLoggedIn: false,
+          message: ''
+      }
+
+  }
+
+    render() {
+      return(
+        <div >
+            <Header currentUser={this.state.user.email}/>
+            <Routes/>
+        </div>
+
+      )
+    }
+}
 
 export default Layout
