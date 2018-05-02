@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Input, Card } from 'semantic-ui-react'
+import { Button, Input, Card, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 import styles from './style.scss'
-
 
 class Header extends Component {
 
@@ -61,10 +60,8 @@ class Header extends Component {
               <div>
               <div className="nav">
                 <nav>
+                  <Link to={"/"}><Icon name='list' className="nav-bar" /></Link>
                   <Link to={"/home"}><Button className="nav-bar">Home</Button></Link>
-
-                  <Link to={"/dashboard"}><Button className="nav-bar">dashboard</Button></Link>
-                  <Link to={"/fitbitData"}><Button className="nav-bar">fitbit data</Button></Link>
 
 
                   <Link to={"/login"} ><Button className="nav-user" >Login</Button></Link>
@@ -72,7 +69,45 @@ class Header extends Component {
 
                 </nav>
               </div>
-              
+              <div className="bottom-menu">
+                <Icon circular name='grid layout' inverted  size="large" className="bottom-menu-icon"/>
+                <Link to={"/fitbitData"}>
+                  <div className="bottom-menu-link1">
+                    <Icon circular name='dashboard' size="large" inverted color="black"/>
+                  </div>
+                </Link>
+                <Link to={"/heartrate"}>
+                  <div className="bottom-menu-link2">
+                    <Icon circular name='heartbeat' size="large" inverted color="red"/>
+                  </div>
+                </Link>
+                <Link to={"/step"}>
+                  <div className="bottom-menu-link3">
+                    <Icon circular name='blind' size="large" inverted color="yellow"/>
+                  </div>
+                </Link>
+                <Link to={"/weight"}>
+                  <div className="bottom-menu-link4">
+                    <Icon circular name='food' size="large" inverted color="brown"/>
+                  </div>
+                </Link>
+                <Link to={"/calories"}>
+                  <div className="bottom-menu-link5">
+                    <Icon circular name='fire' size="large" inverted color="orange"/>
+                  </div>
+                </Link>
+                <Link to={"/sleep"}>
+                  <div className="bottom-menu-link6">
+                    <Icon circular name='moon' size="large" inverted color="blue"/>
+                  </div>
+                </Link>
+                <Link to={"/dashboard"}>
+                  <div className="bottom-menu-link7">
+                    <Icon circular name='plus circle' size='large' inverted color="green"/>
+                  </div>
+                </Link>
+              </div>
+
 
               </div>
             )
@@ -81,9 +116,6 @@ class Header extends Component {
               <div className="nav">
                 <nav>
                   <Link to={"/home"}><Button className="nav-bar">Home</Button></Link>
-
-                  <Link to={"/dashboard"}><Button className="nav-bar">dashboard</Button></Link>
-                  <Link to={"/fitbitData"}><Button className="nav-bar">fitbit data</Button></Link>
 
                   <h1 className="nav-user">Hello, {this.state.currentUser}</h1>
                   <Link to={"/"} ><Button className="nav-user" onClick={this.logOut}>Logout</Button></Link>

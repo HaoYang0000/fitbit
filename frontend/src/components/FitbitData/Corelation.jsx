@@ -21,6 +21,7 @@ class Corelation extends Component {
     this.Standardeviaion = this.Standardeviaion.bind(this);
     this.Average = this.Average.bind(this);
   }
+
   handleCorelationChange(e){
     this.setState({
       target:e.target.value
@@ -42,7 +43,17 @@ class Corelation extends Component {
 
         var temp = {label:this.state.datasets[i].label,data:value};
         corelations.push(temp);
-        console.log(value);
+      }
+    }
+    console.log(corelations);
+    //Sort
+    for (var i = 0; i < corelations.length; i++) {
+      for (var j = i+1 ; j < corelations.length; j++) {
+        if(corelations[i].data <= corelations[j].data){
+          var temp = corelations[i];
+          corelations[i] = corelations[j];
+          corelations[j] = temp;
+        }
       }
     }
 
@@ -50,6 +61,15 @@ class Corelation extends Component {
       corelations:corelations
     });
 
+  }
+
+  componentDidMount(){
+      console.log("ccc");
+      console.log(document.getElementById("select_bar").value);
+      console.log("ccc");
+      // this.setState({
+      //   corelations:corelations
+      // });
   }
 
   PearsonCorelation(x,y){
@@ -101,20 +121,27 @@ class Corelation extends Component {
       })
 
       let corelations = this.state.corelations.map(item =>{
-        return <li key={item.label}>{item.label}:{item.data}</li>
+        return <div key={item.label} className="corelations-item">{item.label}:{item.data}</div>
       })
 
 
         return(
             <div>
-              <select onChange={this.handleCorelationChange.bind(this)}>
+              Corelations of :
+              <select id="select_bar" onChange={this.handleCorelationChange.bind(this)}>
                 {items}
               </select>
-              Current Target:{this.state.target}
 
-              <ul>
-                {corelations}
-              </ul>
+
+              <div className="corelations-container">
+                <div className="corelations-left">
+                  {corelations}
+                </div>
+                <div className="corelations-right">
+
+                </div>
+
+              </div>
             </div>
         )
     }

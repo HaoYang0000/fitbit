@@ -578,7 +578,7 @@ class FitbitData extends Component {
       })
     }
 
-    handleRnageChange(e){
+    handleRangeChange(e){
       this.setState({
           period:e.target.value
       })
@@ -596,29 +596,40 @@ class FitbitData extends Component {
 
     render() {
             return(
-                <div>
-                <div className="temp">
+                <div className="container">
+                  <div className="inner-container">
+                    <RC2 data={data}
 
-
-                  <h3>Testing playground</h3>
-                  <div>
-                    <label>Date</label>
-                    <input type="text" name="date" onChange={this.handleDateChange.bind(this)}/><label>Example: The date, in the format yyyy-MM-dd or today.</label>
+                         type='line'
+                         ref='canvas'/>
                   </div>
-                  <div>
-                    <label>Period</label>
-                    <input type="text" name="detail_level" onChange={this.handleRnageChange.bind(this)}/><label>Example: The period for which data will be returned. Options are 1d, 7d, 30d, 1w, 1m.</label>
-                  </div>
-                  <div>
-                    <label>Detail_level</label>
-                      <input type="text" name="period" onChange={this.handleDetailLevelChange.bind(this)}/><label>Example: Number of data points to include. Either 1sec or 1min.</label>
-                  </div>
-                  <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
-                  <RC2 data={data} type='line' ref='canvas'/>
+                  <div className="right-container">
+                    <h3>Edit Parameters</h3>
+                    <div>
+                      <label>Date: </label>
+                      <input type="text" name="date" onChange={this.handleDateChange.bind(this)}/>
+                      <br/>
+                      <label>Example: The date, in the format yyyy-MM-dd or today.</label>
+                    </div>
+                    <div>
+                      <label>Period: </label>
+                      <input type="text" name="detail_level" onChange={this.handleRangeChange.bind(this)}/>
+                      <br/>
+                      <label>Example: The period for which data will be returned. Options are 1d, 7d, 30d, 1w, 1m.</label>
+                    </div>
+                    <div>
+                      <label>Detail level: </label>
+                      <input type="text" name="period" onChange={this.handleDetailLevelChange.bind(this)}/>
+                      <br/>
+                      <label>Example: Number of data points to include. Either 1sec or 1min.</label>
+                    </div>
+                    <br/>
+                    <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
 
-                  <Corelation data={data}/>
-
-                </div>
+                  </div>
+                  <div className="bottom-container">
+                    <Corelation data={data}/>
+                  </div>
                 </div>
               )
     }

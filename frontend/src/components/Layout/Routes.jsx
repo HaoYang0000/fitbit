@@ -8,6 +8,11 @@ import Login from '../Login/Login.jsx';
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import AddActivity from '../Activity/AddActivity.jsx';
 import FitbitData from '../FitbitData/FitbitData.jsx';
+import Calories from '../FitbitData/Calories.jsx';
+import Heartrate from '../FitbitData/Heartrate.jsx';
+import Sleep from '../FitbitData/Sleep.jsx';
+import Step from '../FitbitData/Step.jsx';
+import Weight from '../FitbitData/Weight.jsx';
 
 const Layout = () =>(
     <Switch>
@@ -18,8 +23,12 @@ const Layout = () =>(
 	    <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/fitbitData" component={FitbitData}/>
 	    <Route exact path="/addActivity" component={AddActivity}/>
+      <Route exact path="/calories" component={Calories}/>
+      <Route exact path="/heartrate" component={Heartrate}/>
+      <Route exact path="/sleep" component={Sleep}/>
+      <Route exact path="/step" component={Step}/>
+      <Route exact path="/weight" component={Weight}/>
       <Route exact path="/callback" component={FitbitData}/>
     </Switch>
 )
-
 export default Layout

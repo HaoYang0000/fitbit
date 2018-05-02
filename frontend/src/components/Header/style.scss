@@ -1,16 +1,18 @@
 .nav {
     position: fixed;
     top: 0;
-    background-color: #00b0b9;
+    background-color: white;
     height: 40px;
 	  width: 100%;
 	  margin-bottom: 0px;
     z-index: 1000;
+    box-shadow: 1px 1px #b3b3b3;
 
     .nav-bar {
       background-color: white;
   		margin-top: 2px;
   		margin-left: 5px;
+
 	  }
 
     .nav-user{
@@ -19,6 +21,210 @@
   		margin-top: 2px;
   		margin-right: 5px;
     }
+}
+.bottom-menu{
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+  z-index: 10;
+
+  .bottom-menu-icon{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    transition:5s;
+  }
+
+  .bottom-menu-link1{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 9;
+    transition:4s;
+  }
+
+  .bottom-menu-link2{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 8;
+    transition:4s;
+  }
+
+  .bottom-menu-link3{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 7;
+    transition:4s;
+  }
+
+  .bottom-menu-link4{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 6;
+    transition:4s;
+  }
+
+  .bottom-menu-link5{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 5;
+    transition:4s;
+  }
+
+  .bottom-menu-link6{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 4;
+    transition:4s;
+  }
+  .bottom-menu-link7{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 4;
+    transition:4s;
+  }
+}
+
+.bottom-menu:hover{
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+  z-index: 10;
+
+  .bottom-menu-icon{
+    transform: rotate(45deg) scale(1.8);
+    cursor: pointer;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link1{
+    transform: scale(1.8) translateY(-0.45in);
+    cursor: pointer;
+    z-index: 9;
+    transition:0.5s;
+  }
+  .bottom-menu-link1:hover{
+    transform: scale(1.8) translateY(-0.45in) rotate(45deg);
+    cursor: pointer;
+    z-index: 9;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link2{
+    transform: scale(1.8) translateY(-0.9in);
+    cursor: pointer;
+    z-index: 8;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link2:hover{
+    transform: scale(1.8) translateY(-0.9in) rotate(45deg);
+    cursor: pointer;
+    z-index: 8;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link3{
+    transform: scale(1.8) translateY(-1.35in);
+    cursor: pointer;
+    z-index: 7;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link3:hover{
+    transform: scale(1.8) translateY(-1.35in) rotate(45deg);
+    cursor: pointer;
+    z-index: 7;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link4{
+    transform: scale(1.8) translateY(-1.8in);
+    cursor: pointer;
+    z-index: 6;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link4:hover{
+    transform: scale(1.8) translateY(-1.8in) rotate(45deg);
+    cursor: pointer;
+    z-index: 6;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link5{
+    transform: scale(1.8) translateY(-2.25in);
+    cursor: pointer;
+    z-index: 5;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link5:hover{
+    transform: scale(1.8) translateY(-2.25in) rotate(45deg);
+    cursor: pointer;
+    z-index: 5;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link6{
+    transform: scale(1.8) translateY(-2.7in);
+    cursor: pointer;
+    z-index: 4;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link6:hover{
+    transform: scale(1.8) translateY(-2.7in) rotate(45deg);
+    cursor: pointer;
+    z-index: 4;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link7{
+    transform: scale(1.8) translateX(-0.5in);
+    cursor: pointer;
+    z-index: 4;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link7:hover{
+    transform: scale(1.8) translateX(-0.5in) rotate(45deg);
+    cursor: pointer;
+    z-index: 4;
+    transition:0.5s;
+  }
+
+
 }
 
 .Login {

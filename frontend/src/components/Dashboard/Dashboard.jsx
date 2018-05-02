@@ -82,7 +82,7 @@ class Dashboard extends Component {
             )
         } else {
             return(
-                <div>
+                <div className="container">
                     <div className="plus-activity-icon">
                         <CheckActivity activities={this.state.activity}/>
                     </div>
