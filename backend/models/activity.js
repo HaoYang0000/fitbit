@@ -6,6 +6,10 @@ var activitySchema = mongoose.Schema({
     category: ['SPORT', 'OTHERS'],
     quantity	: Number,
     user_id: Number,
+    intensity: Number,
+    start_time: String,
+    finish_time: String,
+    user_id: Number,
     time: Date
 });
 

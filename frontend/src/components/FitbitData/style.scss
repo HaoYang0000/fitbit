@@ -31,7 +31,7 @@
 
     .bottom-container{
       position: absolute;
-      bottom: 10%;
+      bottom: 5%;
       left: 10%;
       width: 80%;
       height: 20%;
@@ -63,9 +63,37 @@
 
   }
 
-  .corelations-item{
+  .corelations-item-strong{
+    display: block;
     z-index: 10;
     float:  left;
+    width: 350px;
+    height: 40px;
+    background-color: red;
+    margin-left: 30px;
+    border-radius: 28px;
+  }
+
+  .corelations-item-normal{
+    display: block;
+    z-index: 10;
+    float:  left;
+    width: 350px;
+    height: 40px;
+    background-color: yellow;
+    margin-left: 30px;
+    border-radius: 28px;
+  }
+
+  .corelations-item-weak{
+    display: block;
+    z-index: 10;
+    float:  left;
+    width: 350px;
+    height: 40px;
+    background-color: white;
+    margin-left: 30px;
+    border-radius: 28px;
   }
 
 }

@@ -44,8 +44,6 @@ class AddActivity extends Component {
 
 
 
-
-
     render() {
 
         return(

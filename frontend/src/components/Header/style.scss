@@ -113,6 +113,16 @@
     z-index: 4;
     transition:4s;
   }
+  .bottom-menu-link8{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    transform: scale(1.8);
+    cursor: pointer;
+    z-index: 4;
+    transition:4s;
+  }
 }
 
 .bottom-menu:hover{
@@ -211,17 +221,91 @@
   }
 
   .bottom-menu-link7{
-    transform: scale(1.8) translateX(-0.5in);
+    transform: scale(1.8) translateX(-0.45in);
     cursor: pointer;
     z-index: 4;
     transition:0.5s;
   }
 
   .bottom-menu-link7:hover{
-    transform: scale(1.8) translateX(-0.5in) rotate(45deg);
+    transform: scale(1.8) translateX(-0.45in) rotate(45deg);
     cursor: pointer;
     z-index: 4;
     transition:0.5s;
+  }
+
+  .bottom-menu-link8{
+    transform: scale(1.8) translateX(-0.9in);
+    cursor: pointer;
+    z-index: 4;
+    transition:0.5s;
+  }
+
+  .bottom-menu-link8:hover{
+    transform: scale(1.8) translateX(-0.9in) rotate(45deg);
+    cursor: pointer;
+    z-index: 4;
+    transition:0.5s;
+  }
+
+
+}
+
+.popup-modal{
+  text-align: center;
+  position: fixed;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width:80%;
+  height: 80%;
+  border: solid #000000 1px;
+
+  .close{
+    position: absolute;
+    cursor: pointer;
+    top: 1%;
+    right: 1%;
+  }
+  .header{
+
+  }
+  .content{
+
+
+    .item{
+
+      margin: 10px 10px 10px 10px;
+
+      input[type=text], select {
+          text-align-last:center;
+          width: 80%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+      }
+    }
+
+    .item-optional{
+      margin: 10px 10px 10px 10px;
+
+      input[type=text], select {
+          text-align-last:center;
+          width: 80%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px dashed #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+      }
+    }
+
+
   }
 
 

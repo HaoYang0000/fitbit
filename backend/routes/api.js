@@ -40,12 +40,15 @@ module.exports = function(router, passport) {
     //Create new activity
     router.post('/create_new_activity',
         function(req, res) {
-          for (var i = 0; i < 100; i++) {
+          for (var i = 0; i < 120; i++) {
             var newActivity = new Activity();
                 newActivity.name = req.body.name;
                 newActivity.category = req.body.category;
                 newActivity.quantity = req.body.quantity - Math.floor(Math.random() * 20);
                 newActivity.user_id = req.body.user_id;
+                newActivity.intensity = req.body.intensity - Math.floor(Math.random() * 2);
+                newActivity.start_time = req.body.start_time;
+                newActivity.finish_time = req.body.finish_time;
                 var date = new Date();
                 date.setDate(date.getDate() - i);
                 newActivity.time = date;
@@ -56,7 +59,10 @@ module.exports = function(router, passport) {
             //     newActivity.category = req.body.category;
             //     newActivity.quantity = req.body.quantity;
             //     newActivity.user_id = req.body.user_id;
-            //     newActivity.time = new Date();
+            //     newActivity.intensity = req.body.intensity;
+            //     newActivity.start_time = req.body.start_time;
+            //     newActivity.finish_time = req.body.finish_time;
+            //     newActivity.time = req.body.date;
             //     newActivity.save();
                 res.status(200).json({ name:newActivity.name,category:newActivity.category, quantity: newActivity.quantity, user_id: newActivity.user_id,_id: newActivity._id, message: "Welcome!"
             });

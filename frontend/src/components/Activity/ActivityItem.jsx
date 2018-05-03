@@ -10,6 +10,7 @@ class ActivityItem extends Component {
     	isToggleOn: true
     };
 
+    console.log(props)
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -47,8 +48,9 @@ class ActivityItem extends Component {
     return (
       <div >
       <button onClick={this.handleClick} className={btnClass}>
-        {this.state.isToggleOn ? this.props.name : this.props.quantity}
+        {this.state.isToggleOn ? this.props.item.name  : this.props.item.quantity}
       </button>
+      {this.state.isToggleOn ? ("Quantity: "+this.props.item.quantity +"  Intensity: "+this.props.item.intensity+"  Time: "+ this.props.item.time)  : this.props.item.quantity}
       <button onClick={this.handleDelete}>Delete</button>
       </div>
     );

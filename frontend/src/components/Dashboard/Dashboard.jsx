@@ -39,29 +39,6 @@ class Dashboard extends Component {
         });
     }
 
-    handleAddActivity(e){
-
-      axios.post('/api/create_new_activity', {
-            name: document.getElementById('activity_name').value,
-            category: 'SPORT',
-            quantity: document.getElementById('activity_level').value,
-            user_id: 1
-          })
-          .then(res => {
-
-            if(res.status == 200){
-                console.log("succesful!");
-            } else {
-                this.setState({
-                     message: 'Unable to create!'
-                 });
-            }
-          })
-          .catch(function (error) {
-            console.log("error" + error);
-        });
-
-    }
 
     handleUpdateActivity(new_item){
       var temp = this.state.activity;
@@ -86,12 +63,7 @@ class Dashboard extends Component {
                     <div className="plus-activity-icon">
                         <CheckActivity activities={this.state.activity}/>
                     </div>
-                    <AddActivity onUpdateActivity={this.handleUpdateActivity}/>
-                    <div className="bottom-pannel">
-                        <div className="pannel-component left" >PLACEHODER1</div>
-                        <div className="pannel-component middle" >PLACEHODER2</div>
-                        <div className="pannel-component right" >PLACEHODER3</div>
-                    </div>
+
                 </div>
             )
         }

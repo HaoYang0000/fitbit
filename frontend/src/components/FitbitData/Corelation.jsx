@@ -120,8 +120,29 @@ class Corelation extends Component {
         return <option key={item.label} value={item.label}>{item.label}</option>
       })
 
-      let corelations = this.state.corelations.map(item =>{
-        return <div key={item.label} className="corelations-item">{item.label}:{item.data}</div>
+      let corelations_left = this.state.corelations.filter((item) => item.data >= 0 ).map(item =>{
+        if(item.data >= 0.6){
+          return <div key={item.label} className="corelations-item-strong" >{item.label}: Strong Positive Corelation</div>
+        }
+        else if(item.data >= 0.3){
+          return <div key={item.label} className="corelations-item-normal" >{item.label}: Normal Positive Corelation</div>
+        }
+        else{
+          return <div key={item.label} className="corelations-item-weak" >{item.label}: Weak Positive Corelation</div>
+        }
+
+      })
+
+      let corelations_right = this.state.corelations.filter((item) => item.data <= 0 ).map(item =>{
+        if(item.data <= -0.6){
+          return <div key={item.label} className="corelations-item-strong" >{item.label}: Strong Positive Corelation</div>
+        }
+        else if(item.data <= -0.3){
+          return <div key={item.label} className="corelations-item-normal" >{item.label}: Normal Positive Corelation</div>
+        }
+        else{
+          return <div key={item.label} className="corelations-item-weak" >{item.label}: Weak Positive Corelation</div>
+        }
       })
 
 
@@ -135,10 +156,13 @@ class Corelation extends Component {
 
               <div className="corelations-container">
                 <div className="corelations-left">
-                  {corelations}
+                  <h4>Positive Corelation: </h4>
+                  {corelations_left}
                 </div>
-                <div className="corelations-right">
 
+                <div className="corelations-right">
+                  <h4>Negative Corelation: </h4>
+                  {corelations_right}
                 </div>
 
               </div>

@@ -13,7 +13,7 @@ class CheckActivity extends Component {
     	super(props);
       console.log(this.props.activities);
       this.state = {
-          activity: this.props.activities.slice(1, 10),
+          activity: this.props.activities,
           message: ''
       }
     }
@@ -23,7 +23,7 @@ class CheckActivity extends Component {
 
     render() {
       let items = this.state.activity.map(item =>{
-        return <ActivityItem key={item._id} name={item.name} id={item._id} quantity={item.quantity}/>
+        return <ActivityItem key={item._id} item={item}  />
       })
 
         return(
