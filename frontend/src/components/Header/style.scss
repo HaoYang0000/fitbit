@@ -22,6 +22,8 @@
   		margin-right: 5px;
     }
 }
+
+
 .bottom-menu{
   position: fixed;
   bottom: 60px;
@@ -252,6 +254,7 @@
 }
 
 .popup-modal{
+  overflow: auto;
   text-align: center;
   position: fixed;
   background-color: white;
@@ -276,13 +279,13 @@
 
     .item{
 
-      margin: 10px 10px 10px 10px;
+      margin: 2px 2px 2px 2px;
 
       input[type=text], select {
           text-align-last:center;
           width: 80%;
-          padding: 12px 20px;
-          margin: 8px 0;
+          padding: 5px 20px;
+          margin: 2px 0;
           display: inline-block;
           border: 1px solid #ccc;
           border-radius: 4px;
@@ -291,13 +294,13 @@
     }
 
     .item-optional{
-      margin: 10px 10px 10px 10px;
+      margin: 2px 2px 2px 2px;
 
       input[type=text], select {
           text-align-last:center;
           width: 80%;
-          padding: 12px 20px;
-          margin: 8px 0;
+          padding: 5px 20px;
+          margin: 2px 0;
           display: inline-block;
           border: 1px dashed #ccc;
           border-radius: 4px;

@@ -13,7 +13,7 @@
     .inner-container{
       text-align: center;
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 45%;
       transform: translate(-60%, -60%);
       width: 60%;
@@ -22,10 +22,19 @@
 
     .right-container{
       position: absolute;
-      right: 3%;
+      right: 5%;
       top: 5%;
       width: 250px;
       height: 300px;
+      background-color: rgba(75, 183, 167, 1);
+    }
+
+    .right-bottom-container{
+      position: absolute;
+      right: 5%;
+      bottom: 5%;
+      width: 20%;
+      height: 30%;
       background-color: rgba(75, 183, 167, 1);
     }
 

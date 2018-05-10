@@ -98,6 +98,7 @@ class Step extends Component {
               <div className="inner-container">
                 <RC2 data={data} type='line' ref='canvas'/>
               </div>
+              
             </div>
         )
     }

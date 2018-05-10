@@ -17,6 +17,7 @@ class Header extends Component {
         }
         this.logOut = this.logOut.bind(this);
         this.handleAddActivity = this.handleAddActivity.bind(this);
+        //this.openContent = this.openContent.bind(this);
         // this.handleUpdateActivity = this.handleUpdateActivity.bind(this);
     }
 
@@ -114,10 +115,63 @@ class Header extends Component {
 
     }
 
+    openContent(item){
+      var i;
+      var x = document.getElementsByClassName("act-or-plan");
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+      }
+      document.getElementById(item).style.display = "block";
+    }
 
+    handlePlanChange(e){
+      var i;
+      var x = document.getElementsByClassName("plans");
+
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+      }
+      document.getElementById("plan-"+e.target.value).style.display = "block";
+    }
+
+    handleDesiredPlanChange(e){
+        document.getElementById("desired-goal").innerHTML = e.target.value;
+        document.getElementById("fake-plan").style.display = "block";
+
+        document.getElementById("desired-step").innerHTML = parseInt(e.target.value)*4;
+        document.getElementById("desired-jog").innerHTML = parseInt(e.target.value)*40*3/10000;
+        document.getElementById("desired-yoga").innerHTML = parseInt(e.target.value)*40/10000;
+    }
 
 
     render() {
+      var hide = {
+          display:'none'
+      };
+
+      var red = {
+        backgroundColor: 'rgba(255,0,0,0.3)',
+        width:'50%',
+        marginLeft:'25%',
+        borderRadius: '10px'
+      };
+
+      var yellow = {
+        backgroundColor: 'rgba(255,255,0,0.3)',
+        width:'50%',
+        marginLeft:'25%',
+        borderRadius: '10px'
+      };
+
+      var blue = {
+        backgroundColor: 'rgba(0,0,255,0.3)',
+        width:'50%',
+        marginLeft:'25%',
+        borderRadius: '10px'
+      };
+
+
+
 
         if (this.state.currentUser === "" || this.state.currentUser === undefined) {
             return(
@@ -177,9 +231,9 @@ class Header extends Component {
                                                       &times;
                                                     </a>
                                                     <div className="header">
-                                                      <h1>Add an Activity</h1>
+                                                      <h1>Add an <Button className="nav-bar" onClick={() => this.openContent('Activity')}>Activity</Button> or a <Button className="nav-bar" onClick={() => this.openContent('Plan')}>Plan</Button></h1>
                                                     </div>
-                                                    <div className="content">
+                                                    <div id="Activity" className="content act-or-plan">
                                                       <div className="item">
                                                         <h4>Activity Name: </h4>
                                                         <input type="text" name="activity_name" id='activity_name'/>
@@ -211,6 +265,60 @@ class Header extends Component {
                                                     <div>
                                                       <input type="button" name="submit_activity" value="Submit" onClick={this.handleAddActivity.bind(this)}/>
                                                     </div>
+
+                                                    </div>
+
+                                                    <div id="Plan" className="content act-or-plan" style={hide}>
+                                                      <div className="item">
+                                                        <h4>Plan's Type: </h4>
+                                                        <select defaultValue="1" onChange={this.handlePlanChange.bind(this)}>
+                                                          <option value="1">Calories Consumption</option>
+                                                          <option value="2">Sleep Rate</option>
+                                                          <option value="3">Heart Rate</option>
+                                                          <option value="4">Mood</option>
+                                                        </select>
+                                                      </div>
+
+                                                      <div id="plan-1" className="plans">
+                                                        <div className="item">
+                                                          <h4>Your average calories consumption: </h4>
+                                                          <input type="text" defaultValue={2500} disabled={"true"}/>
+                                                        </div>
+                                                        <div className="item">
+                                                          <h4>Activities will help: </h4>
+                                                          <div style={red}>Steps: Your previous Step data shows a <strong>Strong</strong> relation to Calories consumption.</div>
+                                                          <div style={yellow}>Jog: Your previous Jog data shows a <strong>medium</strong> relation to Calories consumption.</div>
+                                                          <div >Yoga: Your previous Yoga data shows a <strong>weak</strong> relation to Calories consumption.</div>
+
+                                                          <h4>Activities will impact: </h4>
+                                                          <div style={blue}>Bad Mood: Your previous Bad Mood shows a negative relation to Calories consumption.</div>
+                                                        </div>
+
+                                                        <div className="item">
+                                                          <h4>Your desired goal: <label id="desired-goal">2500</label></h4>
+                                                          <input type="range" min={1} defaultValue={2500} max={5000} onChange={this.handleDesiredPlanChange.bind(this)}/>
+                                                          <div id="fake-plan" style={hide}>
+                                                            <h4>Suggested Plan: </h4>
+                                                            <div style={red}>Steps: <label id="desired-step">100000</label> step <Link to={"/"}>==> Add to Plan</Link></div>
+                                                            <div style={yellow}>Jog: <label id="desired-jog">30</label> Minutes <Link to={"/"}>==> Add to Plan</Link></div>
+                                                            <div >Yoga: <label id="desired-yoga">10</label> Minutes <Link to={"/"}>==> Add to Plan</Link></div>
+                                                            <h4>Tries to avoid: </h4>
+                                                            <div style={blue}>Bad Mood</div>
+                                                          </div>
+
+                                                        </div>
+
+
+                                                      </div>
+                                                      <div id="plan-2" className="plans" style={hide}>
+                                                        <h4>Date: Example: The date, in the format yyyy-MM-dd or today.</h4>
+                                                      </div>
+                                                      <div id="plan-3" className="plans" style={hide}>
+                                                        <h4>Intensity: </h4>
+                                                      </div>
+                                                      <div id="plan-4" className="plans" style={hide}>
+                                                        <h4>Intensity: </h4>
+                                                      </div>
 
                                                     </div>
 

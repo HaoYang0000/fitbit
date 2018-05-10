@@ -28,8 +28,9 @@ class Heartrate extends Component {
           period:"7d",
           detail_level:"1min",
           chart_labels:[],
-           hr_data:[],
-           activity:[]
+          hr_data:[],
+          activity:[],
+          hr_data_average: 0
         }
 
         this.clearGraph = this.clearGraph.bind(this);
@@ -69,9 +70,16 @@ class Heartrate extends Component {
            temp_label.push(res.data['activities-heart'][i]['dateTime']);
          }
 
+         var sum = 0;
+         for (var i = 0; i < temp_data.length; i++) {
+           sum+=temp_data[i];
+         }
+         sum = sum/temp_data.length;
+
          this.setState({
              hr_data:temp_data,
-             chart_labels:temp_label
+             chart_labels:temp_label,
+             hr_data_average: sum
          });
 
          this.myChart = this.refs['canvas'].getChart();
@@ -88,6 +96,7 @@ class Heartrate extends Component {
            },
            data: this.state.hr_data
          });
+
          this.myChart.data.labels = this.state.chart_labels;
          this.myChart.update();
 
@@ -118,7 +127,6 @@ class Heartrate extends Component {
     handleUpdate(e){
       this.clearGraph();
       this.retriveData();
-      this.retriveActivities();
     }
 
     render() {
@@ -152,6 +160,17 @@ class Heartrate extends Component {
                 <br/>
                 <input type="button" name="update" value="Update" onClick={this.handleUpdate.bind(this)}/>
 
+              </div>
+              <div className="right-bottom-container">
+                <h3>Your Goal for Heart Rate: </h3>
+                <div>
+                  <label>Your Average HeartRate: </label>
+                  <input type="text" name="detail_level" defaultValue={this.state.hr_data_average} disabled="true"/>
+                  <br/>
+                  <label>Your Desired HeartRate: </label>
+                  <input type="text" name="detail_level" defaultValue={50}/>
+                  <br/>
+                </div>
               </div>
             </div>
         )
