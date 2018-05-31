@@ -12,7 +12,7 @@ const data = {
   ]
 };
 
-const auth = 'Bearer '+'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd251dCB3cHJvIHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI1OTYwMjc5LCJpYXQiOjE1MjUzNTU0Nzl9.0lwDTCpKyqvU7NvoDD7YiLQi8r-ML8LydOF7fNNsI2w';
+var auth = 'Bearer ';
 
 class Step extends Component {
 
@@ -33,12 +33,30 @@ class Step extends Component {
         }
 
         this.clearGraph = this.clearGraph.bind(this);
-
+        this.retriveData = this.retriveData.bind(this);
+        this.retriveToken = this.retriveToken.bind(this);
     }
 
     componentDidMount(){
-      this.clearGraph();
-      // FOR Calories
+      this.retriveToken();
+
+    }
+
+    retriveToken(){
+      axios.get('/api/get_user_token/1').then((res) => {
+        console.log(res.data);
+        auth = auth + res.data.user.token;
+
+        this.clearGraph();
+
+        this.retriveData();
+
+      }).catch( (err) => {
+        console.log("Can not retrive data");
+      });
+    }
+
+    retriveData(){
       axios.get('https://api.fitbit.com/1/user/-/activities/steps/date/'+this.state.date+'/'+this.state.period+'.json',{
        headers: {
          Authorization: auth
@@ -98,7 +116,7 @@ class Step extends Component {
               <div className="inner-container">
                 <RC2 data={data} type='line' ref='canvas'/>
               </div>
-              
+
             </div>
         )
     }

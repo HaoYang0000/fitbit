@@ -86,6 +86,86 @@ module.exports = function(router, passport) {
 
     });
 
+    //Get Stories of certain user
+    router.get('/get_profile_info/:id', function(req, res){
+        User.findOne({"user_id":req.params.id}, function(err, user) {
+            if(err) {
+                res.status(500).send({
+                message: err,
+                user: []
+            });
+            } else {
+                res.status(200).send({
+                    message: 'OK',
+                    user: user
+                });
+            }
+        });
+    });
+
+    //Get Stories of certain user
+    router.get('/get_user_token/:id', function(req, res){
+        User.findOne({"user_id":req.params.id}, function(err, user) {
+            if(err) {
+                res.status(500).send({
+                message: err,
+                user: []
+            });
+            } else {
+                res.status(200).send({
+                    message: 'OK',
+                    user: user
+                });
+            }
+        });
+    });
+
+    //Get Stories of certain user
+    router.post('/update_profile/:id', function(req, res){
+        User.findOne({"user_id":req.params.id}, function(err, user) {
+            if(err) {
+                res.status(500).send({
+                message: err,
+                user: []
+            });
+            } else {
+
+                user.name = req.body.name;
+                user.age = req.body.age;
+                user.health_level = req.body.health_level;
+                user.client_id = req.body.client_id;
+                user.save();
+
+                res.status(200).send({
+                    message: 'OK',
+                    user: user
+                });
+            }
+        });
+    });
+
+    //Get Stories of certain user
+    router.post('/update_user_token/:id', function(req, res){
+        User.findOne({"user_id":req.params.id}, function(err, user) {
+            if(err) {
+                res.status(500).send({
+                message: err,
+                user: []
+            });
+            } else {
+
+                user.token = req.body.token;
+
+                user.save();
+
+                res.status(200).send({
+                    message: 'OK',
+                    user: user
+                });
+            }
+        });
+    });
+
     router.post('/delete_activity',function(req, res){
         Activity.findOne({"_id":req.body.id}, function(err, activity) {
             if(err) {

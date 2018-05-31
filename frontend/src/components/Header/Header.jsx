@@ -9,10 +9,10 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.currentUser)
+        //console.log('bbb'+this.props.currentUser)
         this.state = {
             user: [],
-            currentUser: this.props.currentUser,
+            currentUser: 'Hao',
             message: ''
         }
         this.logOut = this.logOut.bind(this);
@@ -22,25 +22,25 @@ class Header extends Component {
     }
 
     componentDidMount() {
-       console.dir(this);
-        axios.get('/api/get_current_user').then((res) => {
-            console.log("aaa");
-            console.log(res);
-            console.log("aaa");
-            // this.setState({
-            //     currentUser: temp
-            // })
-        }).catch((err) => {
-          console.log(err);
-            // this.setState({
-            //     id:res.data.user.id,
-            //     currentUser: {email:res.data.user.email}
-            // })
-        });
+       //console.dir(this);
+        // axios.get('/api/get_current_user').then((res) => {
+        //     console.log("aaa");
+        //     console.log(res);
+        //     console.log("aaa");
+        //     // this.setState({
+        //     //     currentUser: temp
+        //     // })
+        // }).catch((err) => {
+        //   console.log(err);
+        //     // this.setState({
+        //     //     id:res.data.user.id,
+        //     //     currentUser: {email:res.data.user.email}
+        //     // })
+        // });
     }
 
     componentWillReceiveProps(nextProps) {
-      this.setState({ currentUser: nextProps.currentUser });
+      // this.setState({ currentUser: nextProps.currentUser });
 
     }
 
@@ -187,6 +187,20 @@ class Header extends Component {
 
                 </nav>
               </div>
+              </div>
+            )
+        } else {
+            return(
+              <div>
+              <div className="nav">
+                <nav>
+                  <Link to={"/"}><Icon name='list' className="nav-bar" /></Link>
+                  <Link to={"/home"}><Button className="nav-bar">Home</Button></Link>
+
+                  <p className="nav-user" >Hi, {this.state.currentUser}<Link to={"/profile"}> <Icon name="user circle" size="large"></Icon></Link></p>
+
+                </nav>
+              </div>
               <div className="bottom-menu">
                 <Icon circular name='grid layout' inverted  size="large" className="bottom-menu-icon"/>
                 <Link to={"/fitbitData"}>
@@ -329,18 +343,6 @@ class Header extends Component {
               </div>
 
 
-              </div>
-            )
-        } else {
-            return(
-              <div className="nav">
-                <nav>
-                  <Link to={"/home"}><Button className="nav-bar">Home</Button></Link>
-
-                  <h1 className="nav-user">Hello, {this.state.currentUser}</h1>
-                  <Link to={"/"} ><Button className="nav-user" onClick={this.logOut}>Logout</Button></Link>
-
-                </nav>
               </div>
             )
         }

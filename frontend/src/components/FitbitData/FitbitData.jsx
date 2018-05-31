@@ -88,7 +88,7 @@ const data = {
   ]
 };
 
-const auth = 'Bearer '+'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2RFRSV04iLCJhdWQiOiIyMkNOVzIiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd251dCB3cHJvIHdzbGUgd3dlaSB3c29jIHdzZXQgd2FjdCB3bG9jIiwiZXhwIjoxNTI1OTYwMjc5LCJpYXQiOjE1MjUzNTU0Nzl9.0lwDTCpKyqvU7NvoDD7YiLQi8r-ML8LydOF7fNNsI2w';
+var auth = 'Bearer ';
 
 class FitbitData extends Component {
 
@@ -139,18 +139,32 @@ class FitbitData extends Component {
       //   console.log(err);
       // });
 
-
-      this.clearGraph();
-
-      this.retriveData();
-
-      this.retriveActivities();
+      this.retriveToken();
 
 
 
 
 
 
+
+
+    }
+
+    retriveToken(){
+      axios.get('/api/get_user_token/1').then((res) => {
+        console.log(res.data);
+        auth = auth + res.data.user.token;
+
+        this.clearGraph();
+
+        this.retriveData();
+
+        this.retriveActivities();
+
+
+      }).catch( (err) => {
+        console.log("Can not retrive data");
+      });
     }
 
     retriveActivities(){

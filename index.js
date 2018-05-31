@@ -31,6 +31,9 @@ app.route('/logout').get(function(req, res) {
 app.route('/home').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 });
+app.route('/profile').get(function(req, res) {
+  return res.sendFile(path.join(__dirname, './backend/static/index.html'));
+});
 app.route('/register').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 });

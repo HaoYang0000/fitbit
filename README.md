@@ -1,5 +1,4 @@
-Introduction
-------------
+
 ### Prerequisites:
 - Ensure that you have one of the following required operating systems:  
   * [Node.js](https://nodejs.org/en/)
@@ -21,19 +20,8 @@ Introduction
 - In command line:
 * On Mac:
   ```  
-    $ npm start
+    $ npm run run
   ```
-### NOTE FOR YUSHUO
-- Using mac terminal, using the following command to change current directory to fitbit folder
-* On Mac:
-  ```  
-    $ cd ~/Desktop/fitbit/
-  ```
-- Run the following command to run local front end testing environment(ReactJS) and backend server(Express)
-* On Mac:
-```  
-  $ npm run run
-```
 
 ### File Structure Explain(Only for critical files)
 ```
@@ -53,8 +41,7 @@ Introduction
 | | | | / Header (Folder for navigation header components)
 | | | | / Home (Folder reserved for other components)
 | | | | / Layout (Folder for main structure of the app, first entry structure set up)
-| | | | / Login (Folder reserved for login components)
-| | | | / Register (Folder reserved for register components)
+| | | | / Profile (Folder for user profile page)
 | | backend (Express based, basic environment has set up, need further development later)
 | | config (reserved for some global settings, for example: mongodb account)
 | | design (Folder reserved for Yushuo to upload front design ideas)
